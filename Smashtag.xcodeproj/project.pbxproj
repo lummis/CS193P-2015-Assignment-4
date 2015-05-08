@@ -46,10 +46,6 @@
 		7DE8E21F1AFC40E500C84317 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		7DE8E2201AFC40E500C84317 /* TwitterRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterRequest.swift; sourceTree = "<group>"; };
 		7DE8E2211AFC40E500C84317 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		7DE8E2271AFC593A00C84317 /* MediaItemNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaItemNew.swift; sourceTree = "<group>"; };
-		7DE8E2281AFC593A00C84317 /* TweetNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetNew.swift; sourceTree = "<group>"; };
-		7DE8E2291AFC593A00C84317 /* TwitterRequestNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterRequestNew.swift; sourceTree = "<group>"; };
-		7DE8E22A1AFC593A00C84317 /* UserNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNew.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +89,6 @@
 			children = (
 				7DE8E1FF1AFC3B1A00C84317 /* Main.storyboard */,
 				7DE7C98A1AFD70C30051596A /* TweetTableViewCell.swift */,
-				7DE8E2261AFC593A00C84317 /* TwitterNew */,
 				7DE8E21D1AFC40E500C84317 /* Twitter */,
 				7DE8E21B1AFC3C0000C84317 /* TweetTableViewController.swift */,
 				7DE8E1F91AFC3B1A00C84317 /* Supporting Files */,
@@ -138,17 +133,6 @@
 				7DE8E2211AFC40E500C84317 /* User.swift */,
 			);
 			path = Twitter;
-			sourceTree = "<group>";
-		};
-		7DE8E2261AFC593A00C84317 /* TwitterNew */ = {
-			isa = PBXGroup;
-			children = (
-				7DE8E2271AFC593A00C84317 /* MediaItemNew.swift */,
-				7DE8E2281AFC593A00C84317 /* TweetNew.swift */,
-				7DE8E2291AFC593A00C84317 /* TwitterRequestNew.swift */,
-				7DE8E22A1AFC593A00C84317 /* UserNew.swift */,
-			);
-			path = TwitterNew;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
