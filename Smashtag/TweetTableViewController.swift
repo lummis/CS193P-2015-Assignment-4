@@ -13,6 +13,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     var tweets = [[Tweet]]()
     var searchText: String? = "#unionSquare" {   // default search is #unionSquare
         didSet {
+            lastSuccessfulRequest = nil
             searchTextField?.text = searchText  // just in case somebody updates public searchText
             tweets.removeAll()
             tableView.reloadData()
@@ -24,7 +25,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
         refresh()
 
         // Uncomment the following line to preserve selection between presentations
@@ -35,19 +37,48 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func refresh() {
-        if searchText != nil {
-            let request = TwitterRequest(search: searchText!, count: 100)
-            request.fetchTweets { (newTweets) -> Void in
-                dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                    if newTweets.count > 0 {
-                        self.tweets.insert(newTweets, atIndex: 0)
-                        self.tableView.reloadData()
-                    }
-                }
+        if refreshControl != nil {
+            refreshControl?.beginRefreshing()
+        }
+        refreshAction(refreshControl)
+    }
+    
+    var lastSuccessfulRequest: TwitterRequest?
+    
+    var nextRequestToAttempt: TwitterRequest? {
+        if lastSuccessfulRequest == nil {
+            if searchText != nil {
+                return TwitterRequest(search: searchText!, count: 100)
+            } else {
+                return nil
             }
+        } else {
+            return lastSuccessfulRequest!.requestForNewer
         }
     }
 
+//    @IBAction func refreshAction(sender: UIRefreshControl?) {
+    @IBAction func refreshAction(sender: UIRefreshControl?) {
+        println("refreshAction")
+        if searchText != nil {
+            if let request = nextRequestToAttempt {
+                request.fetchTweets { (newTweets) -> Void in
+                    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                        if newTweets.count > 0 {
+                            self.lastSuccessfulRequest = request
+                            self.tweets.insert(newTweets, atIndex: 0)
+                            self.tableView.reloadData()
+//                            sender?.endRefreshing()
+                            self.refreshControl?.endRefreshing()
+                        }
+                    }
+                }
+            }
+        } else {
+            sender?.endRefreshing()
+        }
+    }
+    
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
             searchTextField.delegate = self
