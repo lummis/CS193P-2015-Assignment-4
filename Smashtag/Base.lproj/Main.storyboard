@@ -44,6 +44,12 @@
                                                 <constraint firstAttribute="height" constant="48" id="sog-MA-tso"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tiu-UW-jIn">
+                                            <rect key="frame" x="14" y="64" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="7EY-wv-76e" firstAttribute="trailing" secondItem="VQy-qv-2LG" secondAttribute="trailingMargin" id="805-k7-XEo"/>
@@ -58,6 +64,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="tweetCreatedLabel" destination="Tiu-UW-jIn" id="cCS-iH-4nl"/>
                                     <outlet property="tweetProfileImageView" destination="YWL-Oq-4Es" id="dO8-CT-wmX"/>
                                     <outlet property="tweetScreenNameLabel" destination="7EY-wv-76e" id="tSj-Ka-9Qc"/>
                                     <outlet property="tweetTextLabel" destination="zDt-QA-sDM" id="3xM-fn-dT7"/>

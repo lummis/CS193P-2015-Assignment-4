@@ -19,6 +19,7 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet weak var tweetProfileImageView: UIView!
     @IBOutlet weak var tweetScreenNameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak var tweetCreatedLabel: UILabel!
     
     func updateUI() {
         // reset any previous tweet information
@@ -29,7 +30,7 @@ class TweetTableViewCell: UITableViewCell {
                 tpiv.image = nil
             }
         }
-//        tweetCreatedLabel?.text = nil
+        tweetCreatedLabel?.text = nil
         
         // load new information from a tweet (if any)
         if let tweet = self.tweet {
@@ -50,13 +51,13 @@ class TweetTableViewCell: UITableViewCell {
                 }
             }
             
-//            let formatter = NSDateFormatter()
-//            if NSDate().timeIntervalSinceDate(tweet.created) > 24*60*60 {
-//                formatter.dateStyle = NSDateFormatterStyle.ShortStyle
-//            } else {
-//                formatter.timeStyle = NSDateFormatterStyle.ShortStyle
-//            }
-//            tweetCreatedLabel?.text = formatter.stringFromDate(tweet.created)
+            let formatter = NSDateFormatter()
+            if NSDate().timeIntervalSinceDate(tweet.created) > 24*60*60 {
+                formatter.dateStyle = NSDateFormatterStyle.ShortStyle
+            } else {
+                formatter.timeStyle = NSDateFormatterStyle.ShortStyle
+            }
+            tweetCreatedLabel?.text = formatter.stringFromDate(tweet.created)
         }
         
     }
