@@ -16,7 +16,7 @@ private struct Storyboard {
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     var tweets = [[Tweet]]()
-    var searchText: String? = "#unionSquare" {   // default search is #unionSquare
+    var searchText: String? = "#WashingtonSquare" {   // default search is #unionSquare
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText  // just in case somebody updates public searchText
@@ -123,6 +123,11 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
         cell.tweet = tweets[indexPath.section][indexPath.row]
+        
+        if indexPath.row == 1 {
+            println("\(cell.tweet)")
+        }
+        
         return cell
     }
 

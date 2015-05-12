@@ -34,7 +34,17 @@ class TweetTableViewCell: UITableViewCell {
         
         // load new information from a tweet (if any)
         if let tweet = self.tweet {
-            tweetTextLabel?.text = tweet.text
+//            tweetTextLabel?.text = tweet.text
+            let attributedText = NSMutableAttributedString(string: tweet.text)
+            let textRange = NSMakeRange(8, 5)
+            attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: textRange)
+            attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.greenColor(), range: NSMakeRange(16, 5))
+            attributedText.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.StyleSingle.rawValue, range: NSMakeRange(3,7))
+            tweetTextLabel?.attributedText = attributedText
+            
+            
+            
+            
             if tweetTextLabel?.text != nil {
                 for _ in tweet.media {
                     tweetTextLabel.text! += " 📷"
