@@ -58,7 +58,6 @@ public class TwitterRequest
     
     // convenience "fetch" for when self is a request that returns Tweet(s)
     // handler is not necessarily invoked on the main queue
-
     public func fetchTweets(handler: ([Tweet]) -> Void) {
         fetch { results in
             var tweets = [Tweet]()
@@ -88,7 +87,6 @@ public class TwitterRequest
     // send an arbitrary request off to Twitter
     // calls the handler (not necessarily on the main queue)
     //   with the JSON results converted to a Property List
-    
     public func fetch(handler: (results: PropertyList?) -> Void) {
         performTwitterRequest(SLRequestMethod.GET, handler: handler)
     }
@@ -96,7 +94,6 @@ public class TwitterRequest
     // generates a request for older Tweets than were returned by self
     // only makes sense if self has done a fetch already
     // only makes sense for requests for Tweets
-
     public var requestForOlder: TwitterRequest? {
         return min_id != nil ? modifiedRequest(parametersToChange: [TwitterKey.MaxID : min_id!]) : nil
     }
@@ -104,7 +101,6 @@ public class TwitterRequest
     // generates a request for newer Tweets than were returned by self
     // only makes sense if self has done a fetch already
     // only makes sense for requests for Tweets
-
     public var requestForNewer: TwitterRequest? {
         return (max_id != nil) ? modifiedRequest(parametersToChange: [TwitterKey.SinceID : max_id!], clearCount: true) : nil
     }
@@ -114,7 +110,6 @@ public class TwitterRequest
     // creates an appropriate SLRequest using the specified SLRequestMethod
     // then calls the other version of this method that takes an SLRequest
     // handler is not necessarily called on the main queue
-    
     func performTwitterRequest(method: SLRequestMethod, handler: (PropertyList?) -> Void) {
         var jsonExtension = (self.requestType.rangeOfString(JSONExtension) == nil) ? JSONExtension : ""
         let request = SLRequest(
@@ -129,7 +124,6 @@ public class TwitterRequest
     // sends the request to Twitter
     // unpackages the JSON response into a Property List
     // and calls handler (not necessarily on the main queue)
-
     func performTwitterRequest(request: SLRequest, handler: (PropertyList?) -> Void) {
         if let account = twitterAccount {
             request.account = account
@@ -182,7 +176,6 @@ public class TwitterRequest
     private var max_id: String? = nil
     
     // modifies parameters in an existing request to create a new one
-    
     private func modifiedRequest(#parametersToChange: Dictionary<String,String>, clearCount: Bool = false) -> TwitterRequest {
         var newParameters = parameters
         for (key, value) in parametersToChange {
@@ -194,7 +187,6 @@ public class TwitterRequest
     
     // captures the min_id and max_id information
     // to support requestForNewer and requestForOlder
-
     private func captureFollowonRequestInfo(propertyListResponse: PropertyList?) {
         if let responseDictionary = propertyListResponse as? NSDictionary {
             self.max_id = responseDictionary.valueForKeyPath(TwitterKey.SearchMetadata.MaxID) as? String
@@ -212,13 +204,11 @@ public class TwitterRequest
     }
     
     // debug println with identifying prefix
-    
     private func log(whatToLog: AnyObject) {
         debugPrintln("TwitterRequest: \(whatToLog)")
     }
     
     // synchronizes access to self across multiple threads
-
     private func synchronize(closure: () -> Void) {
         objc_sync_enter(self)
         closure()
@@ -226,12 +216,10 @@ public class TwitterRequest
     }
     
     // constants
-
     let JSONExtension = ".json"
     let TwitterURLPrefix = "https://api.twitter.com/1.1/"
     
     // keys in Twitter responses/queries
-
     struct TwitterKey {
         static let Count = "count"
         static let Query = "q"

@@ -23,7 +23,7 @@ class TweetTableViewCell: UITableViewCell {
     func updateUI() {
         // reset any previous tweet information
         tweetTextLabel?.attributedText = nil
-        tweetScreenNameLabel?.attributedText = nil
+        tweetScreenNameLabel?.text = nil
         if tweetProfileImageView != nil {
             if let tpiv = tweetProfileImageView as? UIImageView {
                 tpiv.image = nil
@@ -36,15 +36,15 @@ class TweetTableViewCell: UITableViewCell {
             tweetTextLabel?.text = tweet.text
             if tweetTextLabel?.text != nil {
                 for _ in tweet.media {
-                    tweetTextLabel.text! += " ☐"    // his ☐ looks like a camera icon
+                    tweetTextLabel.text! += " 📷"
                 }
             }
             
-            tweetScreenNameLabel?.text = "\(tweet.user)"
+            tweetScreenNameLabel?.text = "\(tweet.user)"    // tweet user description
             
             if let profileImageURL = tweet.user.profileImageURL {
                 if let imageData = NSData(contentsOfURL: profileImageURL) { // blocks main thread
-                    if let imageV = tweetProfileImageView as? UIImageView {
+                    if let imageV = tweetProfileImageView as? UIImageView { // why as? instead of as
                         imageV.image = UIImage(data: imageData)
                     }
                 }

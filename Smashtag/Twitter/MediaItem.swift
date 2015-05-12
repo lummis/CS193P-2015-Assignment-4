@@ -15,11 +15,9 @@ public struct MediaItem
 {
     public var url: NSURL!    // was let
     public var aspectRatio: Double = 0    // was let
-    
     public var description: String { return (url.absoluteString ?? "no url") + " (aspect ratio = \(aspectRatio))" }
     
     // MARK: - Private Implementation
-
     init?(data: NSDictionary?) {
         var valid = false
         if let urlString = data?.valueForKeyPath(TwitterKey.MediaURL) as? NSString {

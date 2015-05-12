@@ -93,10 +93,10 @@ public class Tweet : Printable
                 }
             }
         }
-        // we've failed
-        // but compiler won't let us out of here with non-optional values unset
+
+        // we failed but compiler won't let us out of here with non-optional values unset
         // so set them to anything just to able to return nil
-        // we could make these implicitly-unwrapped optionals, but they should never be nil, ever
+        // we could make these implicitly-unwrapped optionals, but they should never be nil
         self.text = ""
         self.user = User()
         self.created = NSDate()

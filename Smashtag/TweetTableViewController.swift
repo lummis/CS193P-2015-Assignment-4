@@ -5,8 +5,13 @@
 //  Created by Robert Lummis on 5/7/15.
 //  Copyright (c) 2015 ElectricTurkeySoftware. All rights reserved.
 //
+//  follows Stanford CS193P online course
 
 import UIKit
+
+private struct Storyboard {
+    static let CellReuseIdentifier = "tweet"
+}
 
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
@@ -21,10 +26,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    // MARK: - ViewController life cycle
-    
+    // MARK: - ViewController delegate
     override func viewDidLoad() {
         super.viewDidLoad()
+        println("tableView.rowHeight: \(tableView.rowHeight)")
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         refresh()
@@ -36,10 +41,12 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    // MARK: - Class
     func refresh() {
-        if refreshControl != nil {
-            refreshControl?.beginRefreshing()
-        }
+//        if refreshControl != nil {
+//            refreshControl?.beginRefreshing()
+//        }
+        refreshControl?.beginRefreshing()
         refreshAction(refreshControl)
     }
     
@@ -48,7 +55,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     var nextRequestToAttempt: TwitterRequest? {
         if lastSuccessfulRequest == nil {
             if searchText != nil {
-                return TwitterRequest(search: searchText!, count: 100)
+                return TwitterRequest(search: searchText!, count: 10)
             } else {
                 return nil
             }
@@ -57,10 +64,9 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
 
-//    @IBAction func refreshAction(sender: UIRefreshControl?) {
-    @IBAction func refreshAction(sender: UIRefreshControl?) {
+    @IBAction private func refreshAction(sender: UIRefreshControl?) {
         println("refreshAction")
-        if searchText != nil {
+        
             if let request = nextRequestToAttempt {
                 request.fetchTweets { (newTweets) -> Void in
                     dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -68,25 +74,26 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                             self.lastSuccessfulRequest = request
                             self.tweets.insert(newTweets, atIndex: 0)
                             self.tableView.reloadData()
-//                            sender?.endRefreshing()
-                            self.refreshControl?.endRefreshing()
                         }
+                        self.refreshControl?.endRefreshing()
                     }
                 }
-            }
-        } else {
-            sender?.endRefreshing()
+            } else {
+           sender?.endRefreshing()
         }
     }
     
-    @IBOutlet weak var searchTextField: UITextField! {
+    @IBOutlet weak var searchTextField: UITextField!{
         didSet {
+            println("searchTextField - didSet")
             searchTextField.delegate = self
             searchTextField.text = searchText   // in case someone set it before
         }
     }
     
+    // MARK: - UITextField delegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        println("textFieldShouldReturn")
         if textField == searchTextField {   // there's no other possibility, but just for safety
             textField.resignFirstResponder()
             searchText = textField.text
@@ -94,8 +101,12 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         return true
     }
     
+    @IBAction func searchAction(sender: AnyObject) {
+        searchTextField.resignFirstResponder()
+        searchText = searchTextField.text
+    }
+    
     // MARK: - UITableViewDataSource
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
@@ -107,19 +118,13 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         // Return the number of rows in the section.
         return tweets[section].count
     }
-
-    private struct Storyboard {
-        static let CellReuseIdentifier = "tweet"
-    }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
-
-        // Configure the cell...
         cell.tweet = tweets[indexPath.section][indexPath.row]
         return cell
     }
-  
 
     /*
     // Override to support conditional editing of the table view.
