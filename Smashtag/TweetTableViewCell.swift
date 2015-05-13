@@ -34,16 +34,24 @@ class TweetTableViewCell: UITableViewCell {
         
         // load new information from a tweet (if any)
         if let tweet = self.tweet {
-//            tweetTextLabel?.text = tweet.text
+
             let attributedText = NSMutableAttributedString(string: tweet.text)
-            let textRange = NSMakeRange(8, 5)
-            attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: textRange)
-            attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.greenColor(), range: NSMakeRange(16, 5))
-            attributedText.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.StyleSingle.rawValue, range: NSMakeRange(3,7))
+
+            for r in tweet.hashtags {
+                attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: r.nsrange)
+            }
+            for r in tweet.urls {
+                attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: r.nsrange)
+            }
+            for r in tweet.userMentions {
+                attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.purpleColor(), range: r.nsrange)
+            }
+            // the following doesn't seem to show an mediaMentions. Maybe there are none? And the assignment doesn't call for this.
+//            for r in tweet.mediaMentions {
+//                attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.greenColor(), range: r.nsrange)
+//            }
+
             tweetTextLabel?.attributedText = attributedText
-            
-            
-            
             
             if tweetTextLabel?.text != nil {
                 for _ in tweet.media {

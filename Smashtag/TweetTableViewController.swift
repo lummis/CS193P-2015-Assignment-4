@@ -16,7 +16,7 @@ private struct Storyboard {
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     var tweets = [[Tweet]]()
-    var searchText: String? = "#WashingtonSquare" {   // default search is #unionSquare
+    var searchText: String? = "#guppy" {   // initial search text
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText  // just in case somebody updates public searchText
@@ -55,7 +55,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     var nextRequestToAttempt: TwitterRequest? {
         if lastSuccessfulRequest == nil {
             if searchText != nil {
-                return TwitterRequest(search: searchText!, count: 10)
+                return TwitterRequest(search: searchText!, count: 50)
             } else {
                 return nil
             }

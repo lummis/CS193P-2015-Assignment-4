@@ -64,7 +64,7 @@ public class Tweet : Printable
         public var description: String { get { return "\(keyword) (\(nsrange.location), \(nsrange.location+nsrange.length-1))" } }
     }
     
-    public var description: String { return "\(user) - \(created)\n\(text)\nhashtags: \(hashtags)\nurls: \(urls)\nuser_mentions: \(userMentions)" + (id == nil ? "" : "\nid: \(id!)") }
+    public var description: String { return "\(user) - \(created)\n\(text)\nmedia mentions: \(mediaMentions)\nhashtags: \(hashtags)\nurls: \(urls)\nuser_mentions: \(userMentions)" + (id == nil ? "" : "\nid: \(id!)") }
 
     // MARK: - Private Implementation
 
