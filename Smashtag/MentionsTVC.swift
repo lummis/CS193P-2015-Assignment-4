@@ -8,6 +8,10 @@
 
 import UIKit
 
+private struct mentionsConstants {
+    static let CellReuseIdentifier = "mention"
+}
+
 class MentionsTVC: UITableViewController {
 
     override func viewDidLoad() {
@@ -15,8 +19,25 @@ class MentionsTVC: UITableViewController {
 
     }
 
+    // MARK: - Table view delegate
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 25
+    }
+    
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 50
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 50
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println("selected section \(indexPath.section), row \(indexPath.row)")
+    }
+    
     // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
@@ -26,8 +47,19 @@ class MentionsTVC: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return 3
     }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "This is the title for section \(section)"
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell: MentionsTableViewCell = tableView.dequeueReusableCellWithIdentifier(mentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell
+        cell.mentionsLabel1.text = "IndexPath.row: \(indexPath.row)"
+        return cell
+    }
+
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         super.tableView(tableView, viewForHeaderInSection: section)
@@ -52,8 +84,6 @@ class MentionsTVC: UITableViewController {
         return cell
     }
     */
-
-
 
     /*
     // MARK: - Navigation

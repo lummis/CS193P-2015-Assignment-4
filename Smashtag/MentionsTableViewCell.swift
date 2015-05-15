@@ -10,6 +10,7 @@ import UIKit
 
 class MentionsTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var mentionsLabel1: UILabel!
 
 
 }

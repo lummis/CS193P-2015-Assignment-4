@@ -117,15 +117,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mention" id="c4F-47-5Tl" userLabel="MentionsCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mention" id="c4F-47-5Tl" userLabel="MentionsCell" customClass="MentionsTableViewCell" customModule="Smashtag" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c4F-47-5Tl" id="xIO-WH-i0N">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mentions Label 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AzB-gO-BHI">
+                                            <rect key="frame" x="236" y="12" width="128" height="20"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="centerY" secondItem="AzB-gO-BHI" secondAttribute="centerY" id="L71-YS-dbd"/>
+                                        <constraint firstAttribute="centerX" secondItem="AzB-gO-BHI" secondAttribute="centerX" id="z4S-P8-Tvy"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="mentionsLabel1" destination="AzB-gO-BHI" id="Cam-ND-YBS"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="0aP-Yr-Erf" id="Jan-4r-kRT"/>
+                            <outlet property="dataSource" destination="0aP-Yr-Erf" id="Kl0-tA-m17"/>
                             <outlet property="delegate" destination="0aP-Yr-Erf" id="wNX-Dl-6Xf"/>
                         </connections>
                     </tableView>
