@@ -14,9 +14,10 @@ private struct mentionsConstants {
 
 class MentionsTVC: UITableViewController {
 
+    let sectionHeaders = ["Images", "Hashtags", "URLs", "UserScreenNames"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     // MARK: - Table view delegate
@@ -39,9 +40,7 @@ class MentionsTVC: UITableViewController {
     
     // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 4
+        return sectionHeaders.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,8 +49,9 @@ class MentionsTVC: UITableViewController {
         return 3
     }
     
+    // provides the header text if tableView(tableView: UITableView, viewForHeaderInSection section: Int) doesn't override it
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "This is the title for section \(section)"
+        return sectionHeaders[section]
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -60,20 +60,20 @@ class MentionsTVC: UITableViewController {
         return cell
     }
 
-    
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        super.tableView(tableView, viewForHeaderInSection: section)
-        println("section: \(section)")
-
-        let view: UIView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 30))
-        view.backgroundColor = UIColor.yellowColor()
-        let sectionNumberL = UILabel()
-        sectionNumberL.text = "Section \(section)"
-        sectionNumberL.frame = CGRectMake(10, 10, 100, 15)
-        view.addSubview(sectionNumberL)
-        return view
-
-    }
+    // if implemented overrides the header text given in ...titleForHeaderInSection
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        super.tableView(tableView, viewForHeaderInSection: section)
+//        println("section: \(section)")
+//
+//        let view: UIView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 30))
+//        view.backgroundColor = UIColor.yellowColor()
+//        let sectionNumberL = UILabel()
+//        sectionNumberL.text = "Section \(section)"
+//        sectionNumberL.frame = CGRectMake(10, 10, 100, 15)
+//        view.addSubview(sectionNumberL)
+//        return view
+//
+//    }
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

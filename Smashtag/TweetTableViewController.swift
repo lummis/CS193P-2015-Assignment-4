@@ -9,11 +9,12 @@
 
 import UIKit
 
-private struct Storyboard {
-    static let CellReuseIdentifier = "tweet"
-}
-
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
+    
+    private struct TweetsConstants {
+        static let CellReuseIdentifier = "tweet"
+        static let TweetsMentionsSegueName: String = "tweets-mentions"
+    }
 
     var tweets = [[Tweet]]()
     var searchText: String? = "#guppy" {   // initial search text
@@ -30,6 +31,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         println("tableView.rowHeight: \(tableView.rowHeight)")
+        println(TweetsConstants.TweetsMentionsSegueName)
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         refresh()
@@ -91,6 +93,13 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        println("prepareForSegue with identifier: \(segue.identifier)")
+        
+        var vc = segue.destinationViewController as! MentionsTVC
+        vc.title = "the title"
+    }
+    
     // MARK: - UITextField delegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         println("textFieldShouldReturn")
@@ -121,7 +130,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(TweetsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
         cell.tweet = tweets[indexPath.section][indexPath.row]
         
         if indexPath.row == 1 {

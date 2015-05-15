@@ -75,7 +75,7 @@
                                     <outlet property="tweetProfileImageView" destination="YWL-Oq-4Es" id="dO8-CT-wmX"/>
                                     <outlet property="tweetScreenNameLabel" destination="7EY-wv-76e" id="tSj-Ka-9Qc"/>
                                     <outlet property="tweetTextLabel" destination="zDt-QA-sDM" id="3xM-fn-dT7"/>
-                                    <segue destination="0aP-Yr-Erf" kind="showDetail" identifier="tweet-mentions" id="oNm-Zo-H7M"/>
+                                    <segue destination="0aP-Yr-Erf" kind="show" identifier="tweets-mentions" id="7aD-N0-i5b"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -111,18 +111,18 @@
         <!--MentionsTVC-->
         <scene sceneID="91A-OA-hBV">
             <objects>
-                <tableViewController title="Mentions" id="0aP-Yr-Erf" userLabel="MentionsTVC" customClass="MentionsTVC" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Owj-Va-EOL">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <tableViewController modalTransitionStyle="partialCurl" id="0aP-Yr-Erf" userLabel="MentionsTVC" customClass="MentionsTVC" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="22" sectionFooterHeight="22" id="Owj-Va-EOL">
+                        <rect key="frame" x="0.0" y="44" width="600" height="512"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mention" id="c4F-47-5Tl" userLabel="MentionsCell" customClass="MentionsTableViewCell" customModule="Smashtag" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mention" rowHeight="117" id="c4F-47-5Tl" userLabel="MentionsCell" customClass="MentionsTableViewCell" customModule="Smashtag" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c4F-47-5Tl" id="xIO-WH-i0N">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mentions Label 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AzB-gO-BHI">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Mentions Label 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AzB-gO-BHI">
                                             <rect key="frame" x="236" y="12" width="128" height="20"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -144,10 +144,24 @@
                             <outlet property="delegate" destination="0aP-Yr-Erf" id="wNX-Dl-6Xf"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Title" id="1MH-kp-ChQ">
+                        <barButtonItem key="backBarButtonItem" title="&quot;My Back&quot;" id="NKe-Nw-eoO"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="4V5-hx-pap"/>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K0J-ED-xK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationBar contentMode="scaleToFill" id="PQ9-H8-3A1">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <items>
+                        <navigationItem title="Title" id="yee-uv-mJc"/>
+                    </items>
+                </navigationBar>
             </objects>
-            <point key="canvasLocation" x="857" y="1070"/>
+            <point key="canvasLocation" x="857" y="1079"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3qj-l9-9Jn">
