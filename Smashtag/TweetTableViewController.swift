@@ -93,12 +93,27 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        println("prepareForSegue with identifier: \(segue.identifier)")
-        
-        var vc = segue.destinationViewController as! MentionsTVC
-        vc.title = "the title"
+    var selectedTweet: Tweet?
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedTweet = tweets[indexPath.section][indexPath.row]
+        println("didSelectRowAtIndexPath; selectedTweet: \(selectedTweet)")
+        let mentionsTVC = MentionsTVC()
+        mentionsTVC.tweet = selectedTweet
+        mentionsTVC.title = selectedTweet?.user.name
+        self.navigationController?.pushViewController(mentionsTVC, animated: true)
+
     }
+    
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        println("prepareForSegue with identifier: \(segue.identifier)")
+//        println("prepareForSegue...; selectedTweet: \(selectedTweet)")
+//        var vc = segue.destinationViewController as! MentionsTVC
+//        vc.title = "the title assigned in prepare..."
+//        vc.title = selectedTweet?.user.screenName
+//        vc.tweet = selectedTweet
+//
+//    }
     
     // MARK: - UITextField delegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -117,22 +132,17 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - UITableViewDataSource
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return tweets.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
         return tweets[section].count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> TweetTableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(TweetsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
         cell.tweet = tweets[indexPath.section][indexPath.row]
-        
         if indexPath.row == 1 {
             println("\(cell.tweet)")
         }

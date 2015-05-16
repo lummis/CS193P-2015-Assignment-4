@@ -8,16 +8,34 @@
 
 import UIKit
 
-private struct mentionsConstants {
+private struct MentionsConstants {
     static let CellReuseIdentifier = "mention"
 }
 
 class MentionsTVC: UITableViewController {
+    
+    var tweet: Tweet? {
+        didSet {
+            self.tableView.registerClass(MentionsTableViewCell.self, forCellReuseIdentifier: "mention")
+            println("register...")
+        }
+    }
 
-    let sectionHeaders = ["Images", "Hashtags", "URLs", "UserScreenNames"]
+    let sectionHeaders = ["Images", "Hashtags", "URLs", "User Screen Names"]
     
     override func viewDidLoad() {
+        println("MentionsTVC/viewDidLoad;")
         super.viewDidLoad()
+        if tweet != nil {
+            self.title = tweet?.user.screenName
+        } else {
+            println("tweet == nil")
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        println("viewDidAppear; tweet: \(tweet)  title: \(title)")
     }
 
     // MARK: - Table view delegate
@@ -44,8 +62,6 @@ class MentionsTVC: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
         return 3
     }
     
@@ -55,8 +71,9 @@ class MentionsTVC: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: MentionsTableViewCell = tableView.dequeueReusableCellWithIdentifier(mentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell
-        cell.mentionsLabel1.text = "IndexPath.row: \(indexPath.row)"
+        let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell
+
+//        cell.mentionLabel1.text = "IndexPath.row: \(indexPath.row)"
         return cell
     }
 
@@ -74,25 +91,5 @@ class MentionsTVC: UITableViewController {
 //        return view
 //
 //    }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
