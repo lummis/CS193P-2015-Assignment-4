@@ -75,6 +75,7 @@
                                     <outlet property="tweetProfileImageView" destination="YWL-Oq-4Es" id="dO8-CT-wmX"/>
                                     <outlet property="tweetScreenNameLabel" destination="7EY-wv-76e" id="tSj-Ka-9Qc"/>
                                     <outlet property="tweetTextLabel" destination="zDt-QA-sDM" id="3xM-fn-dT7"/>
+                                    <segue destination="0aP-Yr-Erf" kind="show" id="zTH-LH-8YR"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -112,7 +113,7 @@
             <objects>
                 <tableViewController modalTransitionStyle="partialCurl" id="0aP-Yr-Erf" userLabel="MentionsTVC" customClass="MentionsTVC" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="22" sectionFooterHeight="22" id="Owj-Va-EOL">
-                        <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                        <rect key="frame" x="0.0" y="44" width="600" height="512"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -144,6 +145,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="bs2-cW-qdQ"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </tableViewController>
@@ -156,7 +158,7 @@
                     </items>
                 </navigationBar>
             </objects>
-            <point key="canvasLocation" x="857" y="1079"/>
+            <point key="canvasLocation" x="857" y="1071"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3qj-l9-9Jn">
@@ -176,5 +178,26 @@
             </objects>
             <point key="canvasLocation" x="159" y="397"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="YAF-pH-lTB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="k4s-Vu-bC0" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mgq-zq-OSi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0aP-Yr-Erf" kind="relationship" relationship="rootViewController" id="kEV-zn-6aW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s5l-3f-hXX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="159" y="1071"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="zTH-LH-8YR"/>
+    </inferredMetricsTieBreakers>
 </document>

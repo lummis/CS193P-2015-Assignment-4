@@ -18,6 +18,7 @@ class MentionsTableViewCell: UITableViewCell {
 
     var tweet: Tweet? {
         didSet {
+            println("MentionsTableViewCell;didSet tweet")
             updateUI()
         }
     }

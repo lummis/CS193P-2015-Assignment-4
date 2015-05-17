@@ -101,19 +101,19 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         let mentionsTVC = MentionsTVC()
         mentionsTVC.tweet = selectedTweet
         mentionsTVC.title = selectedTweet?.user.name
-        self.navigationController?.pushViewController(mentionsTVC, animated: true)
+//        self.navigationController?.pushViewController(mentionsTVC, animated: true)
 
     }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        println("prepareForSegue with identifier: \(segue.identifier)")
-//        println("prepareForSegue...; selectedTweet: \(selectedTweet)")
-//        var vc = segue.destinationViewController as! MentionsTVC
-//        vc.title = "the title assigned in prepare..."
-//        vc.title = selectedTweet?.user.screenName
-//        vc.tweet = selectedTweet
-//
-//    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        println("prepareForSegue with identifier: \(TweetsConstants.CellReuseIdentifier)")
+        println("prepareForSegue...; selectedTweet: \(selectedTweet)")
+        var vc = segue.destinationViewController as! MentionsTVC
+        vc.title = "title assigned in prepare for segue"
+        vc.title = selectedTweet?.user.screenName
+        vc.tweet = selectedTweet
+
+    }
     
     // MARK: - UITextField delegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -182,16 +182,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the item to be re-orderable.
         return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
     }
     */
 

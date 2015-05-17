@@ -35,7 +35,7 @@ class MentionsTVC: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        println("viewDidAppear; tweet: \(tweet)  title: \(title)")
+        println("MentionsTVC/viewDidAppear; tweet: \(tweet)  title: \(title)")
     }
 
     // MARK: - Table view delegate
