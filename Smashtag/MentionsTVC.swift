@@ -39,16 +39,8 @@ class MentionsTVC: UITableViewController {
 
     // MARK: - Table view delegate
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 25
-    }
-    
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50
-    }
-    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50
+        return UITableViewAutomaticDimension
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -61,7 +53,21 @@ class MentionsTVC: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        if tweet != nil {
+            switch section {
+            case 0:
+                return tweet!.media.count
+            case 1:
+                return tweet!.hashtags.count
+            case 2:
+                return tweet!.urls.count
+            case 3:
+                return tweet!.userMentions.count
+            default:
+                break
+            }
+        }
+        return 5
     }
     
     // provides the header text if tableView(tableView: UITableView, viewForHeaderInSection section: Int) doesn't override it
