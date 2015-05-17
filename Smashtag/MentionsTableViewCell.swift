@@ -12,13 +12,13 @@ class MentionsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var mentionLabel1: UILabel! {
         didSet {
-            println("didSet mentionLabel1")
+            println("MentionsTableViewCell; didSet mentionLabel1")
         }
     }
 
     var tweet: Tweet? {
         didSet {
-            println("MentionsTableViewCell;didSet tweet")
+            println("MentionsTableViewCell; didSet tweet")
             updateUI()
         }
     }

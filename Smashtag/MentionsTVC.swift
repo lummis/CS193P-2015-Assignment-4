@@ -16,8 +16,7 @@ class MentionsTVC: UITableViewController {
     
     var tweet: Tweet? {
         didSet {
-            self.tableView.registerClass(MentionsTableViewCell.self, forCellReuseIdentifier: "mention")
-            println("register...")
+            println("MentionsTVC/didSet tweet")
         }
     }
 
@@ -27,7 +26,7 @@ class MentionsTVC: UITableViewController {
         println("MentionsTVC/viewDidLoad;")
         super.viewDidLoad()
         if tweet != nil {
-            self.title = tweet?.user.screenName
+            self.title = tweet?.user.name
         } else {
             println("tweet == nil")
         }

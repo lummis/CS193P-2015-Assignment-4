@@ -93,25 +93,15 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    var selectedTweet: Tweet?
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedTweet = tweets[indexPath.section][indexPath.row]
-        println("didSelectRowAtIndexPath; selectedTweet: \(selectedTweet)")
-        let mentionsTVC = MentionsTVC()
-        mentionsTVC.tweet = selectedTweet
-        mentionsTVC.title = selectedTweet?.user.name
-//        self.navigationController?.pushViewController(mentionsTVC, animated: true)
-
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         println("prepareForSegue with identifier: \(TweetsConstants.CellReuseIdentifier)")
-        println("prepareForSegue...; selectedTweet: \(selectedTweet)")
+
+        let cell = sender as! TweetTableViewCell
+        let tweet = cell.tweet
+        
+        println("tweet: \(tweet)")
         var vc = segue.destinationViewController as! MentionsTVC
-        vc.title = "title assigned in prepare for segue"
-        vc.title = selectedTweet?.user.screenName
-        vc.tweet = selectedTweet
+        vc.tweet = tweet
 
     }
     
