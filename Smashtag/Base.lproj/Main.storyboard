@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Aaj-sa-2bM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vS4-A3-Zva">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -106,7 +106,7 @@
             <objects>
                 <tableViewController modalTransitionStyle="partialCurl" id="0aP-Yr-Erf" userLabel="MentionsTVC" customClass="MentionsTVC" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="22" sectionFooterHeight="22" id="Owj-Va-EOL">
-                        <rect key="frame" x="0.0" y="44" width="600" height="512"/>
+                        <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -156,7 +156,7 @@
         <!--Navigation Controller-->
         <scene sceneID="3qj-l9-9Jn">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Aaj-sa-2bM" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navControllerForTweets" automaticallyAdjustsScrollViewInsets="NO" id="Aaj-sa-2bM" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="oAY-mT-htD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -174,7 +174,7 @@
         <!--Navigation Controller-->
         <scene sceneID="YAF-pH-lTB">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="k4s-Vu-bC0" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navControllerForMentions" automaticallyAdjustsScrollViewInsets="NO" id="k4s-Vu-bC0" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mgq-zq-OSi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -191,6 +191,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zTH-LH-8YR"/>
+        <segue reference="kEV-zn-6aW"/>
     </inferredMetricsTieBreakers>
 </document>
