@@ -9,23 +9,20 @@
 import UIKit
 
 class TweetTableViewCell: UITableViewCell {
-    
-    var tweet: Tweet? {
-        didSet {
-            updateUI()
-            
-        }
-    }
 
     @IBOutlet weak var tweetProfileImageView: UIView!
     @IBOutlet weak var tweetScreenNameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var tweetCreatedLabel: UILabel!
     
+    var tweet: Tweet? {
+        didSet {
+            updateUI()
+        }
+    }
+    
     func updateUI() {
-        println()
-        println("updateUI()")
-        println("user: \(tweet!.user)")
+
         // reset any previous tweet information
         tweetTextLabel?.attributedText = nil
         tweetScreenNameLabel?.text = nil
@@ -38,13 +35,6 @@ class TweetTableViewCell: UITableViewCell {
         
         // load new information from a tweet (if any)
         if let tweet = self.tweet {
-            
-            // demo
-            let tags = tweet.hashtags
-            for tag in tags {
-                println("tag.keyword: \(tag.keyword)")
-            }
-            //
 
             let attributedText = NSMutableAttributedString(string: tweet.text)
 
@@ -62,6 +52,7 @@ class TweetTableViewCell: UITableViewCell {
             for r in tweet.userMentions {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.purpleColor(), range: r.nsrange)
             }
+            
             // the following doesn't seem to show any mediaMentions. Maybe there are none? And the assignment doesn't call for this.
 //            for r in tweet.mediaMentions {
 //                attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.greenColor(), range: r.nsrange)

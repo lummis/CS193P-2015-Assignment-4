@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Aaj-sa-2bM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Aaj-sa-2bM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -31,17 +31,10 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zDt-QA-sDM" userLabel="TweetTextL">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="TweetTextLabel" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zDt-QA-sDM" userLabel="TweetTextL">
                                             <rect key="frame" x="64" y="28" width="528" height="113"/>
-                                            <attributedString key="attributedText">
-                                                <fragment content="TweetTextLabel">
-                                                    <attributes>
-                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="17" name="HelveticaNeue"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YWL-Oq-4Es" userLabel="image">
@@ -62,11 +55,11 @@
                                         <constraint firstItem="7EY-wv-76e" firstAttribute="trailing" secondItem="VQy-qv-2LG" secondAttribute="trailingMargin" id="805-k7-XEo"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="zDt-QA-sDM" secondAttribute="bottom" id="QHT-YG-ppe"/>
                                         <constraint firstItem="7EY-wv-76e" firstAttribute="top" secondItem="VQy-qv-2LG" secondAttribute="topMargin" id="VYH-O1-ZSb"/>
+                                        <constraint firstItem="7EY-wv-76e" firstAttribute="width" secondItem="zDt-QA-sDM" secondAttribute="width" id="avP-gf-1Yp"/>
                                         <constraint firstItem="YWL-Oq-4Es" firstAttribute="leading" secondItem="VQy-qv-2LG" secondAttribute="leadingMargin" id="b4p-z5-rmb"/>
                                         <constraint firstItem="YWL-Oq-4Es" firstAttribute="top" secondItem="VQy-qv-2LG" secondAttribute="topMargin" id="fQH-ks-4kk"/>
                                         <constraint firstItem="7EY-wv-76e" firstAttribute="leading" secondItem="YWL-Oq-4Es" secondAttribute="trailing" constant="8" id="mUo-BY-MpB"/>
                                         <constraint firstItem="zDt-QA-sDM" firstAttribute="top" secondItem="7EY-wv-76e" secondAttribute="bottom" id="rWC-uw-a6x"/>
-                                        <constraint firstItem="zDt-QA-sDM" firstAttribute="trailing" secondItem="VQy-qv-2LG" secondAttribute="trailingMargin" id="srM-qH-Doi"/>
                                         <constraint firstItem="7EY-wv-76e" firstAttribute="leading" secondItem="zDt-QA-sDM" secondAttribute="leading" id="xz4-NA-qH5"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -75,7 +68,7 @@
                                     <outlet property="tweetProfileImageView" destination="YWL-Oq-4Es" id="dO8-CT-wmX"/>
                                     <outlet property="tweetScreenNameLabel" destination="7EY-wv-76e" id="tSj-Ka-9Qc"/>
                                     <outlet property="tweetTextLabel" destination="zDt-QA-sDM" id="3xM-fn-dT7"/>
-                                    <segue destination="0aP-Yr-Erf" kind="show" id="zTH-LH-8YR"/>
+                                    <segue destination="0aP-Yr-Erf" kind="show" identifier="tweets-mentions" id="zTH-LH-8YR"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -125,10 +118,10 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mention Cell Label 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AzB-gO-BHI">
                                             <rect key="frame" x="224" y="48" width="152" height="20"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="centerY" secondItem="AzB-gO-BHI" secondAttribute="centerY" id="L71-YS-dbd"/>
                                         <constraint firstAttribute="centerX" secondItem="AzB-gO-BHI" secondAttribute="centerX" id="z4S-P8-Tvy"/>

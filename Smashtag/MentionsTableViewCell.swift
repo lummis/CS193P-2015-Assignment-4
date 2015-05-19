@@ -10,13 +10,6 @@ import UIKit
 
 class MentionsTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var mentionLabel1: UILabel! {
-        didSet {
-            println("MentionsTableViewCell; didSet mentionLabel1")
-        }
-    }
+    @IBOutlet weak var mentionLabel1: UILabel! 
     
-    func updateUI() {
-        println("MentionsTableViewCell; updateUI()")
-    }
 }

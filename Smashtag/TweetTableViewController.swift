@@ -28,6 +28,13 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    struct MentionedItems {
+        var typeName: String
+        var items: [String]
+    }
+    
+    var mentions: [MentionedItems]!
+    
     // MARK: - ViewController delegate
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,27 +102,16 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        println("prepareForSegue with identifier: \(TweetsConstants.CellReuseIdentifier)")
 
         let cell = sender as! TweetTableViewCell
         let tweet = cell.tweet
         
-        println("tweet: \(tweet)")
-        var vc = segue.destinationViewController as! MentionsTVC
-        vc.title = tweet?.user.screenName
+        var destinationVC = segue.destinationViewController as! MentionsTVC
+        destinationVC.title = tweet?.user.screenName
         
-        mentions = []
+        mentions = []   // get rid of old content if any
         populateMentions(tweet!)
-        vc.mentions = self.mentions
-    }
-    
-    var mentions: [MentionedItems]!
-    
-//    let mentionTypes = ["Images", "Hashtags", "URLs", "User Screen Names"]
-    
-    struct MentionedItems {
-        var type: String
-        var items: [String]
+        destinationVC.mentions = self.mentions
     }
     
     func populateMentions(tweet: Tweet) {
@@ -125,21 +121,21 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         for tag in tweet.hashtags {
             hashtags.append(tag.keyword)
         }
-        let hashtagMentions = MentionedItems(type: "Hashtags", items: hashtags)
+        let hashtagMentions = MentionedItems(typeName: "Hashtags", items: hashtags)
         if hashtagMentions.items.count > 0 { mentions.append(hashtagMentions) }
         
         var urls: [String] = []
         for url in tweet.urls {
             urls.append(url.keyword)
         }
-        let urlMentions = MentionedItems(type: "URLs", items: urls)
+        let urlMentions = MentionedItems(typeName: "URLs", items: urls)
         if urlMentions.items.count > 0 { mentions.append(urlMentions) }
         
         var screenNames: [String] = []
         for user in tweet.userMentions {
             screenNames.append(user.keyword)
         }
-        let userMentions = MentionedItems(type: "User Screen Names", items: screenNames)
+        let userMentions = MentionedItems(typeName: "User Screen Names", items: screenNames)
         if userMentions.items.count > 0 { mentions.append(userMentions) }
 
     }
