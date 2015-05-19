@@ -17,7 +17,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
 
     var tweets = [[Tweet]]()
-    var searchText: String? = "#guppy" {   // initial search text
+    
+    var searchText: String? = "#texas" {   // initial search text
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText  // just in case somebody updates public searchText
@@ -101,7 +102,45 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         
         println("tweet: \(tweet)")
         var vc = segue.destinationViewController as! MentionsTVC
-        vc.tweet = tweet
+        vc.title = tweet?.user.screenName
+        
+        mentions = []
+        populateMentions(tweet!)
+        vc.mentions = self.mentions
+    }
+    
+    var mentions: [MentionedItems]!
+    
+//    let mentionTypes = ["Images", "Hashtags", "URLs", "User Screen Names"]
+    
+    struct MentionedItems {
+        var type: String
+        var items: [String]
+    }
+    
+    func populateMentions(tweet: Tweet) {
+        println("populateMentions")
+        
+        var hashtags: [String] = []
+        for tag in tweet.hashtags {
+            hashtags.append(tag.keyword)
+        }
+        let hashtagMentions = MentionedItems(type: "Hashtags", items: hashtags)
+        if hashtagMentions.items.count > 0 { mentions.append(hashtagMentions) }
+        
+        var urls: [String] = []
+        for url in tweet.urls {
+            urls.append(url.keyword)
+        }
+        let urlMentions = MentionedItems(type: "URLs", items: urls)
+        if urlMentions.items.count > 0 { mentions.append(urlMentions) }
+        
+        var screenNames: [String] = []
+        for user in tweet.userMentions {
+            screenNames.append(user.keyword)
+        }
+        let userMentions = MentionedItems(type: "User Screen Names", items: screenNames)
+        if userMentions.items.count > 0 { mentions.append(userMentions) }
 
     }
     

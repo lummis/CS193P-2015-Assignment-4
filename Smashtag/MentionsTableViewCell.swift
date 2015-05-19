@@ -15,13 +15,6 @@ class MentionsTableViewCell: UITableViewCell {
             println("MentionsTableViewCell; didSet mentionLabel1")
         }
     }
-
-    var tweet: Tweet? {
-        didSet {
-            println("MentionsTableViewCell; didSet tweet")
-            updateUI()
-        }
-    }
     
     func updateUI() {
         println("MentionsTableViewCell; updateUI()")

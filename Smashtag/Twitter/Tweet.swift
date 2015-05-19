@@ -30,6 +30,7 @@ public class Tweet : Printable
     {
         public var keyword: String              // will include # or @ or http:// prefix    // was let
         public var range: Range<String.Index>   // index into the Tweet's text property only    // was let
+        
         // for earlier Swift version the following was 'public let nsrange: NSRange'
         public var nsrange = NSMakeRange(0, 0)  // index into an NS[Attributed]String made from the Tweet's text
 
@@ -76,6 +77,7 @@ public class Tweet : Printable
                 if let created = (data?.valueForKeyPath(TwitterKey.Created) as? String)?.asTwitterDate {
                     self.created = created
                     id = data?.valueForKeyPath(TwitterKey.ID) as? String
+                    
                     if let mediaEntities = data?.valueForKeyPath(TwitterKey.Media) as? NSArray {
                         for mediaData in mediaEntities {
                             if let mediaItem = MediaItem(data: mediaData as? NSDictionary) {
@@ -83,10 +85,13 @@ public class Tweet : Printable
                             }
                         }
                     }
+                    
                     let hashtagMentionsArray = data?.valueForKeyPath(TwitterKey.Entities.Hashtags) as? NSArray
                     hashtags = getIndexedKeywords(hashtagMentionsArray, inText: text, prefix: "#")
+                    
                     let urlMentionsArray = data?.valueForKeyPath(TwitterKey.Entities.URLs) as? NSArray
                     urls = getIndexedKeywords(urlMentionsArray, inText: text, prefix: "h")
+                    
                     let userMentionsArray = data?.valueForKeyPath(TwitterKey.Entities.UserMentions) as? NSArray
                     userMentions = getIndexedKeywords(userMentionsArray, inText: text, prefix: "@")
                     return

@@ -91,8 +91,8 @@
 			isa = PBXGroup;
 			children = (
 				7DE8E1FF1AFC3B1A00C84317 /* Main.storyboard */,
-				7D821DE51B02EFC700F668B9 /* MentionsTableViewCell.swift */,
 				7D821DE31B02EEA700F668B9 /* MentionsTVC.swift */,
+				7D821DE51B02EFC700F668B9 /* MentionsTableViewCell.swift */,
 				7DE8E21B1AFC3C0000C84317 /* TweetTableViewController.swift */,
 				7DE7C98A1AFD70C30051596A /* TweetTableViewCell.swift */,
 				7DE8E21D1AFC40E500C84317 /* Twitter */,

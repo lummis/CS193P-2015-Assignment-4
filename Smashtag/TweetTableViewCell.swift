@@ -13,6 +13,7 @@ class TweetTableViewCell: UITableViewCell {
     var tweet: Tweet? {
         didSet {
             updateUI()
+            
         }
     }
 
@@ -22,6 +23,9 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet weak var tweetCreatedLabel: UILabel!
     
     func updateUI() {
+        println()
+        println("updateUI()")
+        println("user: \(tweet!.user)")
         // reset any previous tweet information
         tweetTextLabel?.attributedText = nil
         tweetScreenNameLabel?.text = nil
@@ -34,23 +38,37 @@ class TweetTableViewCell: UITableViewCell {
         
         // load new information from a tweet (if any)
         if let tweet = self.tweet {
+            
+            // demo
+            let tags = tweet.hashtags
+            for tag in tags {
+                println("tag.keyword: \(tag.keyword)")
+            }
+            //
 
             let attributedText = NSMutableAttributedString(string: tweet.text)
 
+            println("\(tweet.hashtags.count) hashtags")
             for r in tweet.hashtags {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: r.nsrange)
             }
+            
+            println("\(tweet.urls.count) urls")
             for r in tweet.urls {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: r.nsrange)
             }
+            
+            println("\(tweet.userMentions.count) userMentions")
             for r in tweet.userMentions {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.purpleColor(), range: r.nsrange)
             }
-            // the following doesn't seem to show an mediaMentions. Maybe there are none? And the assignment doesn't call for this.
+            // the following doesn't seem to show any mediaMentions. Maybe there are none? And the assignment doesn't call for this.
 //            for r in tweet.mediaMentions {
 //                attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.greenColor(), range: r.nsrange)
 //            }
 
+            println(attributedText)
+            
             tweetTextLabel?.attributedText = attributedText
             
             if tweetTextLabel?.text != nil {

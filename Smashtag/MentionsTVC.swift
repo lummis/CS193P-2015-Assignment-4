@@ -12,30 +12,64 @@ private struct MentionsConstants {
     static let CellReuseIdentifier = "mention"
 }
 
+//var tweet: Tweet! {
+//    didSet {
+//        println("MentionsTVC; didSet tweet")
+//    }
+//}
+
+//private enum Mention {
+//    case Image (UIImage)
+//    case URL (String)
+//    case Hashtag (String)
+//    case User (String)
+//    
+//    var description: String {
+//        get {
+//            switch self {
+//            case .Image (let image):
+//                return "someImage"
+//            case .URL (let url):
+//                return url
+//            case .Hashtag (let tag):
+//                return tag
+//            case .User (let user):
+//                return user
+//            }
+//        }
+//    }
+//}
+
 class MentionsTVC: UITableViewController {
     
-    var tweet: Tweet? {
+//    var delegate: TweetTableViewController!
+    
+//    struct MentionedItems {
+//        var type: String
+//        var items: [String]
+//    }
+    
+    var mentions: [TweetTableViewController.MentionedItems]! {
         didSet {
-            println("MentionsTVC/didSet tweet")
-        }
-    }
-
-    let sectionHeaders = ["Images", "Hashtags", "URLs", "User Screen Names"]
-    
-    override func viewDidLoad() {
-        println("MentionsTVC/viewDidLoad;")
-        super.viewDidLoad()
-        if tweet != nil {
-            self.title = tweet?.user.name
-        } else {
-            println("tweet == nil")
+            println("hello")
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        println("MentionsTVC/viewDidAppear; tweet: \(tweet)  title: \(title)")
-    }
+//    var tweet: Tweet? {
+//        didSet {
+//            println("MentionsTVC/didSet tweet")
+//
+//        }
+//    }
+    
+//    override func viewDidLoad() {
+//        mentions = delegate.mentions
+//    }
+    
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        println("MentionsTVC/viewDidAppear; tweet: \(tweet)  title: \(title)")
+//    }
 
     // MARK: - Table view delegate
     
@@ -49,36 +83,42 @@ class MentionsTVC: UITableViewController {
     
     // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return sectionHeaders.count
+        return mentions.count
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let items = mentions[section].items
+        return items.count
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tweet != nil {
-            switch section {
-            case 0:
-                return tweet!.media.count
-            case 1:
-                return tweet!.hashtags.count
-            case 2:
-                return tweet!.urls.count
-            case 3:
-                return tweet!.userMentions.count
-            default:
-                break
-            }
-        }
-        return 5
-    }
+//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        if tweet != nil {
+//            switch section {
+//            case 0:
+//                return tweet!.media.count
+//            case 1:
+//                return tweet!.hashtags.count
+//            case 2:
+//                return tweet!.urls.count
+//            case 3:
+//                return tweet!.userMentions.count
+//            default:
+//                break
+//            }
+//        }
+//        return 5
+//    }
     
     // provides the header text if tableView(tableView: UITableView, viewForHeaderInSection section: Int) doesn't override it
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionHeaders[section]
+//        return sectionHeaders[section]
+        return mentions[section].type
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell
-
-//        cell.mentionLabel1.text = "IndexPath.row: \(indexPath.row)"
+        let sectionItems = mentions[indexPath.section]
+        cell.mentionLabel1.text = sectionItems.items[indexPath.row]
         return cell
     }
 
