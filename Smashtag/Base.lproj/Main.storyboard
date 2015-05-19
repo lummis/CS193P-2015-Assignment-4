@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vS4-A3-Zva">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Aaj-sa-2bM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -44,8 +44,11 @@
                                                 <constraint firstAttribute="height" constant="48" id="sog-MA-tso"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tiu-UW-jIn">
-                                            <rect key="frame" x="14" y="64" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tiu-UW-jIn" userLabel="tweetTimeL">
+                                            <rect key="frame" x="6" y="64" width="50" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="qbM-gP-5Kj"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -53,6 +56,9 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="7EY-wv-76e" firstAttribute="trailing" secondItem="VQy-qv-2LG" secondAttribute="trailingMargin" id="805-k7-XEo"/>
+                                        <constraint firstItem="Tiu-UW-jIn" firstAttribute="leading" secondItem="VQy-qv-2LG" secondAttribute="leading" constant="6" id="AAc-ym-7QZ"/>
+                                        <constraint firstItem="Tiu-UW-jIn" firstAttribute="top" secondItem="YWL-Oq-4Es" secondAttribute="bottom" constant="8" id="GGM-0s-xGa"/>
+                                        <constraint firstItem="zDt-QA-sDM" firstAttribute="leading" secondItem="Tiu-UW-jIn" secondAttribute="trailing" constant="8" id="GmH-HZ-foQ"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="zDt-QA-sDM" secondAttribute="bottom" id="QHT-YG-ppe"/>
                                         <constraint firstItem="7EY-wv-76e" firstAttribute="top" secondItem="VQy-qv-2LG" secondAttribute="topMargin" id="VYH-O1-ZSb"/>
                                         <constraint firstItem="7EY-wv-76e" firstAttribute="width" secondItem="zDt-QA-sDM" secondAttribute="width" id="avP-gf-1Yp"/>
@@ -64,10 +70,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="tweetCreatedLabel" destination="Tiu-UW-jIn" id="cCS-iH-4nl"/>
                                     <outlet property="tweetProfileImageView" destination="YWL-Oq-4Es" id="dO8-CT-wmX"/>
                                     <outlet property="tweetScreenNameLabel" destination="7EY-wv-76e" id="tSj-Ka-9Qc"/>
                                     <outlet property="tweetTextLabel" destination="zDt-QA-sDM" id="3xM-fn-dT7"/>
+                                    <outlet property="tweetTimeL" destination="Tiu-UW-jIn" id="vrX-xk-7zz"/>
                                     <segue destination="0aP-Yr-Erf" kind="show" identifier="tweets-mentions" id="zTH-LH-8YR"/>
                                 </connections>
                             </tableViewCell>
@@ -106,25 +112,26 @@
             <objects>
                 <tableViewController modalTransitionStyle="partialCurl" id="0aP-Yr-Erf" userLabel="MentionsTVC" customClass="MentionsTVC" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="22" sectionFooterHeight="22" id="Owj-Va-EOL">
-                        <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                        <rect key="frame" x="0.0" y="44" width="600" height="512"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mention" rowHeight="117" id="c4F-47-5Tl" userLabel="MentionCell" customClass="MentionsTableViewCell" customModule="Smashtag" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" verticalHuggingPriority="500" selectionStyle="default" indentationWidth="10" reuseIdentifier="mention" rowHeight="0.0" id="c4F-47-5Tl" userLabel="MentionCell" customClass="MentionsTableViewCell" customModule="Smashtag" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c4F-47-5Tl" id="xIO-WH-i0N">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mention Cell Label 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AzB-gO-BHI">
-                                            <rect key="frame" x="224" y="48" width="152" height="20"/>
+                                            <rect key="frame" x="224" y="0.0" width="152" height="1"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="centerY" secondItem="AzB-gO-BHI" secondAttribute="centerY" id="L71-YS-dbd"/>
-                                        <constraint firstAttribute="centerX" secondItem="AzB-gO-BHI" secondAttribute="centerX" id="z4S-P8-Tvy"/>
+                                        <constraint firstAttribute="centerX" secondItem="AzB-gO-BHI" secondAttribute="centerX" id="d4U-Oo-vq3"/>
+                                        <constraint firstAttribute="bottom" secondItem="AzB-gO-BHI" secondAttribute="bottom" id="m4m-8w-OGC"/>
+                                        <constraint firstItem="AzB-gO-BHI" firstAttribute="top" secondItem="xIO-WH-i0N" secondAttribute="top" id="tjr-0p-IXF"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -191,6 +198,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kEV-zn-6aW"/>
+        <segue reference="zTH-LH-8YR"/>
     </inferredMetricsTieBreakers>
 </document>

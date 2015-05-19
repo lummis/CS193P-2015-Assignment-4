@@ -13,7 +13,7 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet weak var tweetProfileImageView: UIView!
     @IBOutlet weak var tweetScreenNameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
-    @IBOutlet weak var tweetCreatedLabel: UILabel!
+    @IBOutlet weak var tweetTimeL: UILabel!
     
     var tweet: Tweet? {
         didSet {
@@ -31,7 +31,7 @@ class TweetTableViewCell: UITableViewCell {
                 tpiv.image = nil
             }
         }
-        tweetCreatedLabel?.text = nil
+        tweetTimeL?.text = nil
         
         // load new information from a tweet (if any)
         if let tweet = self.tweet {
@@ -84,7 +84,7 @@ class TweetTableViewCell: UITableViewCell {
             } else {
                 formatter.timeStyle = NSDateFormatterStyle.ShortStyle
             }
-            tweetCreatedLabel?.text = formatter.stringFromDate(tweet.created)
+            tweetTimeL?.text = formatter.stringFromDate(tweet.created)
         }
         
     }
