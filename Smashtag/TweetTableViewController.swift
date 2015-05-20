@@ -18,7 +18,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     var tweets = [[Tweet]]()
     
-    var searchText: String? = "#texas" {   // initial search text
+    var searchText: String? = "#nikon" {   // initial search text
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText  // just in case somebody updates public searchText
@@ -113,24 +113,28 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     private func populateMentions(tweet: Tweet) {
         
-        var hashtags: [String] = []
-        for tag in tweet.hashtags {
-            hashtags.append(tag.keyword)
+        var mediaReferences: [String] = []
+        for mediaItem in tweet.media {
+            if let mediaString = mediaItem.url.relativeString {
+                mediaReferences.append(mediaString)
+            }
         }
+        let myMediaMentions = MentionedItems(typeName: "Media", items: mediaReferences)
+        println( "media: \(myMediaMentions.items.count)" )
+        if myMediaMentions.items.count > 0 { mentions.append(myMediaMentions) }
+        
+        var hashtags: [String] = []
+        for tag in tweet.hashtags { hashtags.append(tag.keyword) }
         let hashtagMentions = MentionedItems(typeName: "Hashtags", items: hashtags)
         if hashtagMentions.items.count > 0 { mentions.append(hashtagMentions) }
         
         var urls: [String] = []
-        for url in tweet.urls {
-            urls.append(url.keyword)
-        }
+        for url in tweet.urls { urls.append(url.keyword) }
         let urlMentions = MentionedItems(typeName: "URLs", items: urls)
         if urlMentions.items.count > 0 { mentions.append(urlMentions) }
         
         var screenNames: [String] = []
-        for user in tweet.userMentions {
-            screenNames.append(user.keyword)
-        }
+        for user in tweet.userMentions { screenNames.append(user.keyword) }
         let userMentions = MentionedItems(typeName: "User Screen Names", items: screenNames)
         if userMentions.items.count > 0 { mentions.append(userMentions) }
 
