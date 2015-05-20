@@ -15,6 +15,7 @@ private struct MentionsConstants {
 class MentionsTVC: UITableViewController, UITableViewDelegate {
     
     var mentions: [TweetTableViewController.MentionedItems]!
+    var textForNextSearch: String!  // copied to TweetTableViewController during unwind segue
     
     // MARK: - Table view delegate
     
@@ -24,6 +25,10 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println("selected section \(indexPath.section), row \(indexPath.row)")
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! MentionsTableViewCell
+        let label = cell.mentionLabel1
+        textForNextSearch = label.text
+        performSegueWithIdentifier("unwindToTweets", sender: self)
     }
     
     // MARK: - Table view data source
@@ -35,12 +40,6 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
         let items = mentions[section].items
         return items.count
     }
-    
-    // provides the header text if tableView(tableView: UITableView, viewForHeaderInSection section: Int) doesn't override it
-//    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-////        return sectionHeaders[section]
-//        return mentions[section].type
-//    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell

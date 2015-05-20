@@ -168,13 +168,14 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(TweetsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
         cell.tweet = tweets[indexPath.section][indexPath.row]
-        if indexPath.row == 1 {
-            println("\(cell.tweet)")
-        }
-        
         return cell
     }
 
+    @IBAction func unwindToTweets(sender: UIStoryboardSegue) {
+        let sourceViewController = sender.sourceViewController as! MentionsTVC
+        searchText = sourceViewController.textForNextSearch
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

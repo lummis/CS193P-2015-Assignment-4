@@ -148,8 +148,12 @@
                     <navigationItem key="navigationItem" id="bs2-cW-qdQ"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <segue destination="zfp-J8-ncl" kind="unwind" identifier="unwindToTweets" unwindAction="unwindToTweets:" id="I01-Kr-5fa"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K0J-ED-xK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="zfp-J8-ncl" userLabel="Exit" sceneMemberID="exit"/>
                 <navigationBar contentMode="scaleToFill" id="PQ9-H8-3A1">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
