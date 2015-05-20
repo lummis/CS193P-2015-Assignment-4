@@ -38,8 +38,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - ViewController delegate
     override func viewDidLoad() {
         super.viewDidLoad()
-        println("tableView.rowHeight: \(tableView.rowHeight)")
-        println(TweetsConstants.TweetsMentionsSegueName)
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         refresh()
@@ -95,7 +93,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var searchTextField: UITextField!{
         didSet {
-            println("searchTextField - didSet")
             searchTextField.delegate = self
             searchTextField.text = searchText   // in case someone set it before
         }
@@ -114,8 +111,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         destinationVC.mentions = self.mentions
     }
     
-    func populateMentions(tweet: Tweet) {
-        println("populateMentions")
+    private func populateMentions(tweet: Tweet) {
         
         var hashtags: [String] = []
         for tag in tweet.hashtags {
@@ -142,7 +138,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - UITextField delegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        println("textFieldShouldReturn")
         if textField == searchTextField {   // there's no other possibility, but just for safety
             textField.resignFirstResponder()
             searchText = textField.text
@@ -171,7 +166,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         return cell
     }
 
-    @IBAction func unwindToTweets(sender: UIStoryboardSegue) {
+    @IBAction private func unwindToTweets(sender: UIStoryboardSegue) {
         let sourceViewController = sender.sourceViewController as! MentionsTVC
         searchText = sourceViewController.textForNextSearch
     }

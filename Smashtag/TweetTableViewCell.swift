@@ -38,17 +38,14 @@ class TweetTableViewCell: UITableViewCell {
 
             let attributedText = NSMutableAttributedString(string: tweet.text)
 
-            println("\(tweet.hashtags.count) hashtags")
             for r in tweet.hashtags {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: r.nsrange)
             }
             
-            println("\(tweet.urls.count) urls")
             for r in tweet.urls {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: r.nsrange)
             }
             
-            println("\(tweet.userMentions.count) userMentions")
             for r in tweet.userMentions {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.purpleColor(), range: r.nsrange)
             }
@@ -57,8 +54,6 @@ class TweetTableViewCell: UITableViewCell {
 //            for r in tweet.mediaMentions {
 //                attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.greenColor(), range: r.nsrange)
 //            }
-
-            println(attributedText)
             
             tweetTextLabel?.attributedText = attributedText
             

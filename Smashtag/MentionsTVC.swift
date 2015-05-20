@@ -24,11 +24,27 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println("selected section \(indexPath.section), row \(indexPath.row)")
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! MentionsTableViewCell
-        let label = cell.mentionLabel1
-        textForNextSearch = label.text
-        performSegueWithIdentifier("unwindToTweets", sender: self)
+        let cellText = cell.mentionLabel1.text!
+        let firstChar = cellText[cellText.startIndex]
+        switch firstChar {
+            case "#", "@":
+            textForNextSearch = cellText
+            performSegueWithIdentifier("unwindToTweets", sender: self)
+            
+        case "h":
+            println("going to url: \(cellText)")
+            let theURL: NSURL = NSURL(string: cellText)!
+            UIApplication.sharedApplication().openURL(theURL)
+            
+        default:
+            break
+        }
+
+//
+//        let label = cell.mentionLabel1
+//        textForNextSearch = label.text
+//        performSegueWithIdentifier("unwindToTweets", sender: self)
     }
     
     // MARK: - Table view data source
