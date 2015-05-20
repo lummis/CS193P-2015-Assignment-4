@@ -86,7 +86,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="fxL-4M-Zm5">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="iVp-e0-nXb">
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="iVp-e0-nXb">
                             <connections>
                                 <action selector="searchAction:" destination="vS4-A3-Zva" id="A9N-Pr-x6p"/>
                             </connections>

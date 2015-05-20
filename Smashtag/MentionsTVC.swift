@@ -33,18 +33,14 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
             performSegueWithIdentifier("unwindToTweets", sender: self)
             
         case "h":
-            println("going to url: \(cellText)")
             let theURL: NSURL = NSURL(string: cellText)!
             UIApplication.sharedApplication().openURL(theURL)
             
         default:
+            println("switch didn't get # or @ or h")
             break
         }
 
-//
-//        let label = cell.mentionLabel1
-//        textForNextSearch = label.text
-//        performSegueWithIdentifier("unwindToTweets", sender: self)
     }
     
     // MARK: - Table view data source
