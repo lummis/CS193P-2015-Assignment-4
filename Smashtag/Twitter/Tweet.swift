@@ -21,7 +21,7 @@ public class Tweet : Printable
     public var created: NSDate    // was let
     public var id: String?    // was let
     public var media = [MediaItem]()    // was let
-    public var mediaMentions = [IndexedKeyword]()   // copied here from m2mtech's github
+//        public var mediaMentions = [IndexedKeyword]()   // copied here from m2mtech's github
     public var hashtags = [IndexedKeyword]()    // was let
     public var urls = [IndexedKeyword]()    // was let
     public var userMentions = [IndexedKeyword]()    // was let
@@ -65,7 +65,8 @@ public class Tweet : Printable
         public var description: String { get { return "\(keyword) (\(nsrange.location), \(nsrange.location+nsrange.length-1))" } }
     }
     
-    public var description: String { return "\(user) - \(created)\n\(text)\nmedia mentions: \(mediaMentions)\nhashtags: \(hashtags)\nurls: \(urls)\nuser_mentions: \(userMentions)" + (id == nil ? "" : "\nid: \(id!)") }
+//    public var description: String { return "\(user) - \(created)\n\(text)\nmedia mentions: \(mediaMentions)\nhashtags: \(hashtags)\nurls: \(urls)\nuser_mentions: \(userMentions)" + (id == nil ? "" : "\nid: \(id!)") }
+        public var description: String { return "\(user) - \(created)\n\(text)\nhashtags: \(hashtags)\nurls: \(urls)\nuser_mentions: \(userMentions)" + (id == nil ? "" : "\nid: \(id!)") }
 
     // MARK: - Private Implementation
 

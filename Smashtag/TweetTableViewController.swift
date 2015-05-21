@@ -18,7 +18,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     var tweets = [[Tweet]]()
     
-    var searchText: String? = "#nikon" {   // initial search text
+    var searchText: String? = "#wednesday" {   // initial search text
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText  // just in case somebody updates public searchText
@@ -28,9 +28,9 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    struct MentionedItems {
-        var typeName: String
-        var items: [String]
+    enum MentionedItems {
+        case StringItems( String, [String] )             // urls, users, hashtags
+        case MediaItems( [MediaItem] )       // media
     }
     
     var mentions: [MentionedItems]!
@@ -111,32 +111,32 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         destinationVC.mentions = self.mentions
     }
     
+//    enum MentionedItems {
+//        case StringItems( String, [String] )             // urls, users, hashtags
+//        case MediaItems( [MediaItem] )                    // media
+//    }
+//    
+//    var mentions: [MentionedItems]!
+    
     private func populateMentions(tweet: Tweet) {
         
-        var mediaReferences: [String] = []
-        for mediaItem in tweet.media {
-            if let mediaString = mediaItem.url.relativeString {
-                mediaReferences.append(mediaString)
-            }
+        var medias = [MediaItem]()
+        for item in tweet.media {
+            medias.append(item)
         }
-        let myMediaMentions = MentionedItems(typeName: "Media", items: mediaReferences)
-        println( "media: \(myMediaMentions.items.count)" )
-        if myMediaMentions.items.count > 0 { mentions.append(myMediaMentions) }
+        if medias.count > 0 { mentions.append( MentionedItems.MediaItems( medias )) }
         
         var hashtags: [String] = []
         for tag in tweet.hashtags { hashtags.append(tag.keyword) }
-        let hashtagMentions = MentionedItems(typeName: "Hashtags", items: hashtags)
-        if hashtagMentions.items.count > 0 { mentions.append(hashtagMentions) }
+        if hashtags.count > 0 { mentions.append( MentionedItems.StringItems("hashtags", hashtags)) }
         
         var urls: [String] = []
         for url in tweet.urls { urls.append(url.keyword) }
-        let urlMentions = MentionedItems(typeName: "URLs", items: urls)
-        if urlMentions.items.count > 0 { mentions.append(urlMentions) }
+        if urls.count > 0 { mentions.append( MentionedItems.StringItems("urls", urls )) }
         
         var screenNames: [String] = []
         for user in tweet.userMentions { screenNames.append(user.keyword) }
-        let userMentions = MentionedItems(typeName: "User Screen Names", items: screenNames)
-        if userMentions.items.count > 0 { mentions.append(userMentions) }
+        if screenNames.count > 0 { mentions.append( MentionedItems.StringItems("user", screenNames)) }
 
     }
     
@@ -163,10 +163,19 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         return tweets[section].count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> TweetTableViewCell
+    override internal func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> TweetTableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(TweetsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
         cell.tweet = tweets[indexPath.section][indexPath.row]
+        
+            println()
+            println("==========")
+            println(cell.tweet)
+            for item in cell.tweet!.media {
+                println("item: \(item.description)")
+            }
+            println("==========")
+        
         return cell
     }
 

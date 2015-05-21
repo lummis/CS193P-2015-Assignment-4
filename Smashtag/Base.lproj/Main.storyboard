@@ -121,14 +121,15 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" tableViewCell="c4F-47-5Tl" id="xIO-WH-i0N">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mention Cell Label 1" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000007" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AzB-gO-BHI">
-                                            <rect key="frame" x="224" y="0.0" width="152" height="1"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mention Cell Label 1" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AzB-gO-BHI">
+                                            <rect key="frame" x="8" y="0.0" width="584" height="1"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
+                                        <constraint firstItem="AzB-gO-BHI" firstAttribute="leading" secondItem="xIO-WH-i0N" secondAttribute="leadingMargin" id="HSn-KC-tl3"/>
                                         <constraint firstAttribute="centerX" secondItem="AzB-gO-BHI" secondAttribute="centerX" id="d4U-Oo-vq3"/>
                                         <constraint firstAttribute="bottom" secondItem="AzB-gO-BHI" secondAttribute="bottom" id="m4m-8w-OGC"/>
                                         <constraint firstItem="AzB-gO-BHI" firstAttribute="top" secondItem="xIO-WH-i0N" secondAttribute="top" id="tjr-0p-IXF"/>
