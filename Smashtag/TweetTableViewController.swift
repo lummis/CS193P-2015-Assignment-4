@@ -11,7 +11,7 @@ import UIKit
 
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
-    let debugPrinting = true
+    let debugPrinting = false
     
     private struct TweetsConstants {
         static let CellReuseIdentifier = "tweet"
@@ -20,7 +20,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     var tweets = [[Tweet]]()
     
-    var searchText: String? = "#philadelphia" {   // initial search text
+    var searchText: String? = "#beyonce" {   // initial search text
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText  // just in case somebody updates public searchText
@@ -31,9 +31,9 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     enum MentionedItems {
-        case UserItems      ( String, [String] )
-        case UrlItems       ( String, [String] )
-        case HashtagItems   ( String, [String] )
+        case UserItems      ( [String] )
+        case UrlItems       ( [String] )
+        case HashtagItems   ( [String] )
         case MediaItems     ( [MediaItem] )       // media
     }
     
@@ -110,7 +110,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         var destinationVC = segue.destinationViewController as! MentionsTVC
         destinationVC.title = tweet?.user.screenName
         
-        mentions = []   // get rid of old content if any
         populateMentions(tweet!)
         destinationVC.mentions = self.mentions
     }
@@ -123,24 +122,25 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 //    var mentions: [MentionedItems]!
     
     private func populateMentions(tweet: Tweet) {
+        mentions = []   // get rid of old content if any
+        
+        var screenNames: [String] = []
+        for user in tweet.userMentions { screenNames.append(user.keyword) }
+        if screenNames.count > 0 { mentions.append( MentionedItems.UserItems( screenNames )) }
+        
+        var hashtags: [String] = []
+        for tag in tweet.hashtags { hashtags.append(tag.keyword) }
+        if hashtags.count > 0 { mentions.append( MentionedItems.HashtagItems( hashtags )) }
+        
+        var urls: [String] = []
+        for url in tweet.urls { urls.append(url.keyword) }
+        if urls.count > 0 { mentions.append( MentionedItems.UrlItems( urls )) }
         
         var medias = [MediaItem]()
         for item in tweet.media {
             medias.append(item)
         }
         if medias.count > 0 { mentions.append( MentionedItems.MediaItems( medias )) }
-        
-        var hashtags: [String] = []
-        for tag in tweet.hashtags { hashtags.append(tag.keyword) }
-        if hashtags.count > 0 { mentions.append( MentionedItems.HashtagItems("hashtags", hashtags)) }
-        
-        var urls: [String] = []
-        for url in tweet.urls { urls.append(url.keyword) }
-        if urls.count > 0 { mentions.append( MentionedItems.UrlItems("urls", urls )) }
-        
-        var screenNames: [String] = []
-        for user in tweet.userMentions { screenNames.append(user.keyword) }
-        if screenNames.count > 0 { mentions.append( MentionedItems.UserItems("user", screenNames)) }
 
     }
     

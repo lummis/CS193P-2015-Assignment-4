@@ -48,34 +48,85 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
         return mentions.count
     }
     
+//
+//    var mentions: [MentionedItems]!
+    
+//    enum MentionedItems {
+//        case UserItems      ( [String] )
+//        case UrlItems       ( [String] )
+//        case HashtagItems   ( [String] )
+//        case MediaItems     ( [MediaItem] )       // media
+//    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var count = 0
+
+        let array = mentions[section]
+        switch array {
+        case .UserItems(let userMentions):
+            return userMentions.count
+        case .HashtagItems(let hashtagMentions):
+            return hashtagMentions.count
+        case .UrlItems(let urlMentions):
+            return urlMentions.count
+        case .MediaItems(let mediaMentions):
+            return mediaMentions.count
+        }
+        
+//        return count
+        
 //        let items = mentions[section].items
 //        return items.count
 
-        return 3
     }
     
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell
-//        let sectionItems = mentions[indexPath.section]
-//        cell.mentionLabel1.text = sectionItems.items[indexPath.row]
-//        return cell
-//    }
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell
+        let sectionItems = mentions[indexPath.section]
+//        cell.mentionLabel1.text = "test"
+//        cell.mentionLabel1.text = sectionItems[indexPath.row]
+        
+        switch sectionItems {
+        case .UserItems(let userMentions):
+            cell.mentionLabel1.text = userMentions[indexPath.row]
+        case .HashtagItems(let hashtags):
+            cell.mentionLabel1.text = hashtags[indexPath.row]
+        case .UrlItems(let urls):
+            cell.mentionLabel1.text = urls[indexPath.row]
+        case .MediaItems(let images):
+            cell.mentionLabel1.text = "Image"
+        }
+        return cell
+    }
     
     // required if viewForHeaderInSection is implemented
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
 
-    // if implemented overrides the header text given in ...titleForHeaderInSection
-    // I'm implementing this so I can specify colors
-//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        super.tableView(tableView, viewForHeaderInSection: section)
-//        let view: UILabel = UILabel( frame: CGRectNull )    // size will be overridden by tableView
-//        view.backgroundColor = UIColor.lightGrayColor()
-//        view.textColor = UIColor.whiteColor()
-//        view.text = mentions[section].typeName
-//        return view
-//    }
+//     if implemented overrides the header text given in ...titleForHeaderInSection
+//     I'm implementing this so I can specify colors
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        super.tableView(tableView, viewForHeaderInSection: section)
+        let view: UILabel = UILabel( frame: CGRectNull )    // size will be overridden by tableView
+        view.backgroundColor = UIColor.lightGrayColor()
+        view.textColor = UIColor.whiteColor()
+
+        var sectionHeader = ""
+        switch mentions[section] {
+        case .UserItems(let userMentions):
+            println(userMentions[0])
+            sectionHeader = "Users"
+        case .HashtagItems(let hashtagMentions):
+            println(hashtagMentions[0])
+            sectionHeader = "Hashtags"
+        case .UrlItems(let urlMentions):
+            sectionHeader = "URLs"
+        case .MediaItems(let mediaMentions):
+            sectionHeader = "Images"
+        }
+        view.text = sectionHeader
+        return view
+    }
 
 }
