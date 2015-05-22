@@ -11,6 +11,8 @@ import UIKit
 
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
+    let debugPrinting = true
+    
     private struct TweetsConstants {
         static let CellReuseIdentifier = "tweet"
         static let TweetsMentionsSegueName: String = "tweets-mentions"
@@ -18,7 +20,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     var tweets = [[Tweet]]()
     
-    var searchText: String? = "#wednesday" {   // initial search text
+    var searchText: String? = "#philadelphia" {   // initial search text
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText  // just in case somebody updates public searchText
@@ -29,8 +31,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     enum MentionedItems {
-        case StringItems( String, [String] )             // urls, users, hashtags
-        case MediaItems( [MediaItem] )       // media
+        case UserItems      ( String, [String] )
+        case UrlItems       ( String, [String] )
+        case HashtagItems   ( String, [String] )
+        case MediaItems     ( [MediaItem] )       // media
     }
     
     var mentions: [MentionedItems]!
@@ -128,15 +132,15 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         
         var hashtags: [String] = []
         for tag in tweet.hashtags { hashtags.append(tag.keyword) }
-        if hashtags.count > 0 { mentions.append( MentionedItems.StringItems("hashtags", hashtags)) }
+        if hashtags.count > 0 { mentions.append( MentionedItems.HashtagItems("hashtags", hashtags)) }
         
         var urls: [String] = []
         for url in tweet.urls { urls.append(url.keyword) }
-        if urls.count > 0 { mentions.append( MentionedItems.StringItems("urls", urls )) }
+        if urls.count > 0 { mentions.append( MentionedItems.UrlItems("urls", urls )) }
         
         var screenNames: [String] = []
         for user in tweet.userMentions { screenNames.append(user.keyword) }
-        if screenNames.count > 0 { mentions.append( MentionedItems.StringItems("user", screenNames)) }
+        if screenNames.count > 0 { mentions.append( MentionedItems.UserItems("user", screenNames)) }
 
     }
     
@@ -168,13 +172,15 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         let cell = tableView.dequeueReusableCellWithIdentifier(TweetsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
         cell.tweet = tweets[indexPath.section][indexPath.row]
         
+        if debugPrinting {
             println()
             println("==========")
             println(cell.tweet)
             for item in cell.tweet!.media {
-                println("item: \(item.description)")
+                println("media item: \(item.description)")
             }
             println("==========")
+        }
         
         return cell
     }

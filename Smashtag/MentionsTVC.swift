@@ -49,16 +49,18 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let items = mentions[section].items
-        return items.count
+//        let items = mentions[section].items
+//        return items.count
+
+        return 3
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell
-        let sectionItems = mentions[indexPath.section]
-        cell.mentionLabel1.text = sectionItems.items[indexPath.row]
-        return cell
-    }
+//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell
+//        let sectionItems = mentions[indexPath.section]
+//        cell.mentionLabel1.text = sectionItems.items[indexPath.row]
+//        return cell
+//    }
     
     // required if viewForHeaderInSection is implemented
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -67,13 +69,13 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
 
     // if implemented overrides the header text given in ...titleForHeaderInSection
     // I'm implementing this so I can specify colors
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        super.tableView(tableView, viewForHeaderInSection: section)
-        let view: UILabel = UILabel( frame: CGRectNull )    // size will be overridden by tableView
-        view.backgroundColor = UIColor.lightGrayColor()
-        view.textColor = UIColor.whiteColor()
-        view.text = mentions[section].typeName
-        return view
-    }
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        super.tableView(tableView, viewForHeaderInSection: section)
+//        let view: UILabel = UILabel( frame: CGRectNull )    // size will be overridden by tableView
+//        view.backgroundColor = UIColor.lightGrayColor()
+//        view.textColor = UIColor.whiteColor()
+//        view.text = mentions[section].typeName
+//        return view
+//    }
 
 }

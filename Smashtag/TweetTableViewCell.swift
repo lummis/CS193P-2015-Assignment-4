@@ -36,7 +36,9 @@ class TweetTableViewCell: UITableViewCell {
         // load new information from a tweet (if any)
         if let tweet = self.tweet {
 
-            let attributedText = NSMutableAttributedString(string: tweet.text)
+            var cameraString = ""
+            for _ in tweet.media { cameraString += " 📷" }
+            let attributedText = NSMutableAttributedString(string: tweet.text + cameraString)
 
             for r in tweet.hashtags {
                 attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: r.nsrange)
@@ -47,22 +49,10 @@ class TweetTableViewCell: UITableViewCell {
             }
             
             for r in tweet.userMentions {
-                attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.purpleColor(), range: r.nsrange)
+                attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.orangeColor(), range: r.nsrange)
             }
-            
-            // the following doesn't seem to show any mediaMentions. Maybe there are none? And the assignment doesn't call for this.
-//            for r in tweet.mediaMentions {
-//                attributedText.addAttribute(NSForegroundColorAttributeName, value: UIColor.greenColor(), range: r.nsrange)
-//            }
             
             tweetTextLabel?.attributedText = attributedText
-            
-            if tweetTextLabel?.text != nil {
-                for _ in tweet.media {
-                    tweetTextLabel.text! += " 📷"
-                }
-            }
-            
             tweetScreenNameLabel?.text = "\(tweet.user)"    // tweet user description
             
             if let profileImageURL = tweet.user.profileImageURL {
