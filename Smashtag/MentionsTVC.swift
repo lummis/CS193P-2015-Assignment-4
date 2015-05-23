@@ -14,13 +14,22 @@ private struct MentionsConstants {
 
 class MentionsTVC: UITableViewController, UITableViewDelegate {
     
+    var aspectRatio: CGFloat = 1
     var mentions: [TweetTableViewController.MentionedItems]!
     var textForNextSearch: String!  // copied to TweetTableViewController during unwind segue
     
     // MARK: - Table view delegate
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        switch indexPath.section {
+        case 0:
+            if aspectRatio == 0.0 { return 100.0 }
+            let height = 100.0 / aspectRatio
+            println("aspectRatio: \(aspectRatio),  height = \(height)")
+            return height       // LAME! relies on section 0 being the image section
+        default:
+            return UITableViewAutomaticDimension
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -48,16 +57,6 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
         return mentions.count
     }
     
-//
-//    var mentions: [MentionedItems]!
-    
-//    enum MentionedItems {
-//        case UserItems      ( [String] )
-//        case UrlItems       ( [String] )
-//        case HashtagItems   ( [String] )
-//        case MediaItems     ( [MediaItem] )       // media
-//    }
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
 
@@ -72,61 +71,82 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
         case .MediaItems(let mediaMentions):
             return mediaMentions.count
         }
-        
-//        return count
-        
-//        let items = mentions[section].items
-//        return items.count
 
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        println("cellForRow...  indexPath: ( \(indexPath.section), \(indexPath.row) )")
+        
         let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell
         let sectionItems = mentions[indexPath.section]
-//        cell.mentionLabel1.text = "test"
-//        cell.mentionLabel1.text = sectionItems[indexPath.row]
+        
+        cell.imageV.hidden = true   // reverse for image case
+        cell.mentionLabel1.hidden = false   // reverse for image case
         
         switch sectionItems {
+            
         case .UserItems(let userMentions):
             cell.mentionLabel1.text = userMentions[indexPath.row]
+
         case .HashtagItems(let hashtags):
             cell.mentionLabel1.text = hashtags[indexPath.row]
+
         case .UrlItems(let urls):
             cell.mentionLabel1.text = urls[indexPath.row]
+
         case .MediaItems(let images):
-            cell.mentionLabel1.text = "Image"
+            cell.imageV.hidden = false
+            cell.mentionLabel1.hidden = true
+            let image = images[0]
+            let url = image.url
+            if let imageData = NSData(contentsOfURL: url) {
+                cell.imageV.image = UIImage(data: imageData)
+            }
         }
         return cell
     }
     
-    // required if viewForHeaderInSection is implemented
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-
-//     if implemented overrides the header text given in ...titleForHeaderInSection
-//     I'm implementing this so I can specify colors
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        super.tableView(tableView, viewForHeaderInSection: section)
-        let view: UILabel = UILabel( frame: CGRectNull )    // size will be overridden by tableView
-        view.backgroundColor = UIColor.lightGrayColor()
-        view.textColor = UIColor.whiteColor()
-
-        var sectionHeader = ""
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var word = ""
         switch mentions[section] {
-        case .UserItems(let userMentions):
-            println(userMentions[0])
-            sectionHeader = "Users"
-        case .HashtagItems(let hashtagMentions):
-            println(hashtagMentions[0])
-            sectionHeader = "Hashtags"
-        case .UrlItems(let urlMentions):
-            sectionHeader = "URLs"
-        case .MediaItems(let mediaMentions):
-            sectionHeader = "Images"
+        case .UserItems:
+            word = "Screen Names"
+        case .HashtagItems:
+            word = "Hashtags"
+        case .UrlItems:
+            word = "URLs"
+        case .MediaItems:
+            word = "Images"
         }
-        view.text = sectionHeader
-        return view
+        return word
     }
+    
+//    // required if viewForHeaderInSection is implemented
+//    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 30
+//    }
+//
+////     if implemented overrides the header text given in ...titleForHeaderInSection
+////     I'm implementing this so I can specify colors
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        super.tableView(tableView, viewForHeaderInSection: section)
+//        let view: UILabel = UILabel( frame: CGRectNull )    // size will be overridden by tableView
+//        view.backgroundColor = UIColor.lightGrayColor()
+//        view.textColor = UIColor.whiteColor()
+//
+//        var sectionHeader = ""
+//        switch mentions[section] {
+//        case .UserItems(let userMentions):
+//            sectionHeader = "Users"
+//        case .HashtagItems(let hashtagMentions):
+//            sectionHeader = "Hashtags"
+//        case .UrlItems(let urlMentions):
+//            sectionHeader = "URLs"
+//        case .MediaItems(let mediaMentions):
+//            sectionHeader = "Images"
+//        }
+//        view.text = sectionHeader
+//        return view
+//    }
 
 }

@@ -111,31 +111,48 @@
         <scene sceneID="91A-OA-hBV">
             <objects>
                 <tableViewController modalTransitionStyle="partialCurl" id="0aP-Yr-Erf" userLabel="MentionsTVC" customClass="MentionsTVC" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="22" sectionFooterHeight="22" id="Owj-Va-EOL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="Owj-Va-EOL">
                         <rect key="frame" x="0.0" y="44" width="600" height="512"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" verticalHuggingPriority="500" selectionStyle="default" indentationWidth="10" reuseIdentifier="mention" rowHeight="0.0" id="c4F-47-5Tl" userLabel="MentionCell" customClass="MentionsTableViewCell" customModule="Smashtag" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" verticalHuggingPriority="500" selectionStyle="default" indentationWidth="10" reuseIdentifier="mention" rowHeight="100" id="c4F-47-5Tl" userLabel="MentionCell" customClass="MentionsTableViewCell" customModule="Smashtag" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" tableViewCell="c4F-47-5Tl" id="xIO-WH-i0N">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mention Cell Label 1" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AzB-gO-BHI">
-                                            <rect key="frame" x="8" y="0.0" width="584" height="1"/>
+                                            <rect key="frame" x="8" y="0.0" width="584" height="99"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cRC-SD-bz4">
+                                            <rect key="frame" x="250" y="8" width="100" height="83"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="wLj-Gb-04v"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uf-0r-FjI" userLabel="aspectRatio">
+                                            <rect key="frame" x="0.0" y="0.0" width="24" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
+                                        <constraint firstItem="cRC-SD-bz4" firstAttribute="top" secondItem="xIO-WH-i0N" secondAttribute="topMargin" id="06P-x8-Qa1"/>
+                                        <constraint firstAttribute="centerX" secondItem="cRC-SD-bz4" secondAttribute="centerX" id="7za-o0-lyc"/>
                                         <constraint firstItem="AzB-gO-BHI" firstAttribute="leading" secondItem="xIO-WH-i0N" secondAttribute="leadingMargin" id="HSn-KC-tl3"/>
+                                        <constraint firstAttribute="centerY" secondItem="cRC-SD-bz4" secondAttribute="centerY" id="bxx-Fo-qcl"/>
                                         <constraint firstAttribute="centerX" secondItem="AzB-gO-BHI" secondAttribute="centerX" id="d4U-Oo-vq3"/>
                                         <constraint firstAttribute="bottom" secondItem="AzB-gO-BHI" secondAttribute="bottom" id="m4m-8w-OGC"/>
                                         <constraint firstItem="AzB-gO-BHI" firstAttribute="top" secondItem="xIO-WH-i0N" secondAttribute="top" id="tjr-0p-IXF"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="aspectRatio" destination="2uf-0r-FjI" id="61K-44-2uf"/>
+                                    <outlet property="imageV" destination="cRC-SD-bz4" id="bWi-jB-Vyk"/>
                                     <outlet property="mentionLabel1" destination="AzB-gO-BHI" id="uyK-zP-Apf"/>
                                 </connections>
                             </tableViewCell>

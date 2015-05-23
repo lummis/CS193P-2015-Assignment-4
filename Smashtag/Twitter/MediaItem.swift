@@ -28,6 +28,8 @@ public struct MediaItem
                 if h != nil && w != nil && h?.doubleValue != 0 {
                     aspectRatio = w!.doubleValue / h!.doubleValue
                     valid = true
+                    
+                    println("in MediaItem; w: \(w), h: \(h), aspectRatio: \(aspectRatio)")
                 }
             }
         }

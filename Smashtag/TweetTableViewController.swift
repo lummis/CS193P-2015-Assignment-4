@@ -20,7 +20,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     var tweets = [[Tweet]]()
     
-    var searchText: String? = "#beyonce" {   // initial search text
+    var searchText: String? = "#audi" {   // initial search text
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText  // just in case somebody updates public searchText
@@ -111,18 +111,24 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         destinationVC.title = tweet?.user.screenName
         
         populateMentions(tweet!)
+        destinationVC.aspectRatio = self.aspectRatio
+        println("self.aspectRatio: \(self.aspectRatio)")
         destinationVC.mentions = self.mentions
     }
     
-//    enum MentionedItems {
-//        case StringItems( String, [String] )             // urls, users, hashtags
-//        case MediaItems( [MediaItem] )                    // media
-//    }
-//    
-//    var mentions: [MentionedItems]!
+    private var aspectRatio: CGFloat = 1
     
     private func populateMentions(tweet: Tweet) {
         mentions = []   // get rid of old content if any
+        
+        var medias = [MediaItem]()
+        for item in tweet.media {
+            medias.append(item)
+        }
+        if medias.count > 0 {
+            mentions.append( MentionedItems.MediaItems( medias ))
+            aspectRatio = CGFloat(medias[0].aspectRatio) // LAME! - only show the first image
+        }
         
         var screenNames: [String] = []
         for user in tweet.userMentions { screenNames.append(user.keyword) }
@@ -135,12 +141,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         var urls: [String] = []
         for url in tweet.urls { urls.append(url.keyword) }
         if urls.count > 0 { mentions.append( MentionedItems.UrlItems( urls )) }
-        
-        var medias = [MediaItem]()
-        for item in tweet.media {
-            medias.append(item)
-        }
-        if medias.count > 0 { mentions.append( MentionedItems.MediaItems( medias )) }
 
     }
     

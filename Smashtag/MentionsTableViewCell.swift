@@ -10,6 +10,8 @@ import UIKit
 
 class MentionsTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var mentionLabel1: UILabel! 
+    @IBOutlet weak var mentionLabel1: UILabel!
+    @IBOutlet weak var imageV: UIImageView!
+    @IBOutlet weak var aspectRatio: UILabel!
     
 }
