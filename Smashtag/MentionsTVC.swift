@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 ElectricTurkeySoftware. All rights reserved.
 //
 
+//  This class deals with just a single tweet
+
 import UIKit
 
 private struct MentionsConstants {
@@ -15,19 +17,31 @@ private struct MentionsConstants {
 class MentionsTVC: UITableViewController, UITableViewDelegate {
     
     var aspectRatio: CGFloat = 1
-    var mentions: [TweetTableViewController.MentionedItems]!
+    var hasImage: Bool = false
+    var mentions: [TweetTableViewController.MentionedItems]! {
+        didSet {
+            for mention in mentions {
+                switch mention {
+                case .MediaItems:
+                    hasImage = true
+                default:
+                    break
+                }
+            }
+        }
+    }
     var textForNextSearch: String!  // copied to TweetTableViewController during unwind segue
     
     // MARK: - Table view delegate
     
+    // if an image is present it will always be in row 0
+    // the code has an array of .MediaItems so there could be more than one
+    // but we will only show the first image
+    // in practice there seems to never be more than one. Maybe twitter doesn't support >1.
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            if aspectRatio == 0.0 { return 100.0 }
+        if indexPath.section == 0 && hasImage {
             return 100.0 / aspectRatio
-        default:
-            return UITableViewAutomaticDimension
-        }
+        } else { return UITableViewAutomaticDimension }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -47,7 +61,14 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
             println("switch didn't get # or @ or h")
             break
         }
-
+    }
+    
+    // this allows reloadData() to be called
+    // if reloadData isn't called the row heights are wrong after the first device rotation
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        println("rotate")
+        self.tableView.reloadData()
     }
     
     // MARK: - Table view data source
@@ -56,50 +77,45 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var count = 0
-
-        let array = mentions[section]
-        switch array {
-        case .UserItems(let userMentions):
-            return userMentions.count
-        case .HashtagItems(let hashtagMentions):
-            return hashtagMentions.count
-        case .UrlItems(let urlMentions):
-            return urlMentions.count
-        case .MediaItems(let mediaMentions):
-            return mediaMentions.count
+        switch mentions[section] {
+        case .UrlItems( let items ):
+            return items.count
+        case .UserItems( let items ):
+            return items.count
+        case .MediaItems( let items):
+            return items.count
+        case .HashtagItems( let items ):
+            return items.count
         }
-
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell
-        let sectionItems = mentions[indexPath.section]
-        
-        cell.imageV.hidden = true   // reverse for image case
+        cell.imageV.hidden = true           // reverse for image case
         cell.mentionLabel1.hidden = false   // reverse for image case
         
-        switch sectionItems {
+        switch mentions[indexPath.section] {
             
-        case .UserItems(let userMentions):
-            cell.mentionLabel1.text = userMentions[indexPath.row]
+        case .UserItems(let items):
+            cell.mentionLabel1.text = items[indexPath.row]
 
-        case .HashtagItems(let hashtags):
-            cell.mentionLabel1.text = hashtags[indexPath.row]
+        case .HashtagItems(let items):
+            cell.mentionLabel1.text = items[indexPath.row]
 
-        case .UrlItems(let urls):
-            cell.mentionLabel1.text = urls[indexPath.row]
+        case .UrlItems(let items):
+            cell.mentionLabel1.text = items[indexPath.row]
 
-        case .MediaItems(let images):
-            cell.imageV.hidden = false
-            cell.mentionLabel1.hidden = true
-            let image = images[0]
+        case .MediaItems(let items):
+            let image = items[0]
             let url = image.url
             if let imageData = NSData(contentsOfURL: url) {
                 cell.imageV.image = UIImage(data: imageData)
             }
+            cell.imageV.hidden = false
+            cell.mentionLabel1.hidden = true
         }
+        
         return cell
     }
     
