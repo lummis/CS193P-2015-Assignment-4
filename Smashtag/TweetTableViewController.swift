@@ -20,7 +20,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     var tweets = [[Tweet]]()
     
-    var searchText: String? = "#audi" {   // initial search text
+    var searchText: String? = "#auditography" {   // initial search text
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText  // just in case somebody updates public searchText
@@ -105,18 +105,21 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
         let cell = sender as! TweetTableViewCell
-        let tweet = cell.tweet
+        let tweet = cell.tweet!
         
         var destinationVC = segue.destinationViewController as! MentionsTVC
-        destinationVC.title = tweet?.user.screenName
+        destinationVC.title = tweet.user.screenName
         
-        populateMentions(tweet!)
-        destinationVC.aspectRatio = self.aspectRatio
-        println("self.aspectRatio: \(self.aspectRatio)")
+        let tweetMedia = tweet.media
+        if !tweetMedia.isEmpty {
+            destinationVC.aspectRatio = CGFloat(tweetMedia[0].aspectRatio)
+        }
+
+        populateMentions(tweet)
         destinationVC.mentions = self.mentions
     }
     
-    private var aspectRatio: CGFloat = 1
+//    private var aspectRatio: CGFloat = 1
     
     private func populateMentions(tweet: Tweet) {
         mentions = []   // get rid of old content if any
@@ -127,7 +130,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
         if medias.count > 0 {
             mentions.append( MentionedItems.MediaItems( medias ))
-            aspectRatio = CGFloat(medias[0].aspectRatio) // LAME! - only show the first image
+//            aspectRatio = CGFloat(medias[0].aspectRatio) // LAME! - only show the first image
         }
         
         var screenNames: [String] = []

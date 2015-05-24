@@ -29,7 +29,7 @@ public struct MediaItem
                     aspectRatio = w!.doubleValue / h!.doubleValue
                     valid = true
                     
-                    println("in MediaItem; w: \(w), h: \(h), aspectRatio: \(aspectRatio)")
+//                    println("in MediaItem; w: \(w), h: \(h), aspectRatio: \(aspectRatio)")
                 }
             }
         }

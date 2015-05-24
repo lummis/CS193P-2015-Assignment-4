@@ -24,9 +24,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
         switch indexPath.section {
         case 0:
             if aspectRatio == 0.0 { return 100.0 }
-            let height = 100.0 / aspectRatio
-            println("aspectRatio: \(aspectRatio),  height = \(height)")
-            return height       // LAME! relies on section 0 being the image section
+            return 100.0 / aspectRatio
         default:
             return UITableViewAutomaticDimension
         }
@@ -75,7 +73,6 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        println("cellForRow...  indexPath: ( \(indexPath.section), \(indexPath.row) )")
         
         let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell
         let sectionItems = mentions[indexPath.section]

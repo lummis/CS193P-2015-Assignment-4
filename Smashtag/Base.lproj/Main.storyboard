@@ -132,12 +132,6 @@
                                                 <constraint firstAttribute="width" constant="100" id="wLj-Gb-04v"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uf-0r-FjI" userLabel="aspectRatio">
-                                            <rect key="frame" x="0.0" y="0.0" width="24" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -151,7 +145,6 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="aspectRatio" destination="2uf-0r-FjI" id="61K-44-2uf"/>
                                     <outlet property="imageV" destination="cRC-SD-bz4" id="bWi-jB-Vyk"/>
                                     <outlet property="mentionLabel1" destination="AzB-gO-BHI" id="uyK-zP-Apf"/>
                                 </connections>
