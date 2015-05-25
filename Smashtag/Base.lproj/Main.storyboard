@@ -112,7 +112,7 @@
             <objects>
                 <tableViewController modalTransitionStyle="partialCurl" id="0aP-Yr-Erf" userLabel="MentionsTVC" customClass="MentionsTVC" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="Owj-Va-EOL">
-                        <rect key="frame" x="0.0" y="44" width="600" height="512"/>
+                        <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -175,10 +175,28 @@
             </objects>
             <point key="canvasLocation" x="857" y="1071"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--View Controller (image)-->
+        <scene sceneID="2dw-iO-lbg">
+            <objects>
+                <viewController storyboardIdentifier="imageVC" id="FNM-6W-LsI" userLabel="View Controller (image)" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3uc-IC-T4X"/>
+                        <viewControllerLayoutGuide type="bottom" id="O6Z-LQ-NXq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="KtU-nP-VEf">
+                        <rect key="frame" x="0.0" y="44" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JdP-7u-Xka" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1517" y="1071"/>
+        </scene>
+        <!--Navigation Controller tweets)-->
         <scene sceneID="3qj-l9-9Jn">
             <objects>
-                <navigationController storyboardIdentifier="navControllerForTweets" automaticallyAdjustsScrollViewInsets="NO" id="Aaj-sa-2bM" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navControllerForTweets" automaticallyAdjustsScrollViewInsets="NO" id="Aaj-sa-2bM" userLabel="Navigation Controller tweets)" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="oAY-mT-htD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -193,10 +211,10 @@
             </objects>
             <point key="canvasLocation" x="159" y="397"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller (MentionsTVC)-->
         <scene sceneID="YAF-pH-lTB">
             <objects>
-                <navigationController storyboardIdentifier="navControllerForMentions" automaticallyAdjustsScrollViewInsets="NO" id="k4s-Vu-bC0" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navControllerForMentions" automaticallyAdjustsScrollViewInsets="NO" id="k4s-Vu-bC0" userLabel="Navigation Controller (MentionsTVC)" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Mgq-zq-OSi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -213,6 +231,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zTH-LH-8YR"/>
+        <segue reference="kEV-zn-6aW"/>
     </inferredMetricsTieBreakers>
 </document>

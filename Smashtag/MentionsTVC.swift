@@ -12,12 +12,15 @@ import UIKit
 
 private struct MentionsConstants {
     static let CellReuseIdentifier = "mention"
+    static let ImageViewIdentifier = "imageVC"
+    static let SegueToImageIdentifier = "mention-image"
 }
 
 class MentionsTVC: UITableViewController, UITableViewDelegate {
     
     var aspectRatio: CGFloat = 1
     var hasImage: Bool = false
+    var imageURL: NSURL?
     var mentions: [TweetTableViewController.MentionedItems]! {
         didSet {
             for mention in mentions {
@@ -44,7 +47,13 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
         } else { return UITableViewAutomaticDimension }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if imageURL != nil && indexPath.section == 0 {
+                displayImage(imageURL!)
+                return
+        }
+        
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! MentionsTableViewCell
         let cellText = cell.mentionLabel1.text!
         let firstChar = cellText[cellText.startIndex]
@@ -62,7 +71,24 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
             break
         }
     }
-    
+
+    func displayImage(imageURL: NSURL) {
+        let imageVC = storyboard?.instantiateViewControllerWithIdentifier(MentionsConstants.ImageViewIdentifier) as! UIViewController
+        if let imageData = NSData(contentsOfURL: imageURL) {
+            let imageView = UIImageView(image: UIImage(data: imageData))
+            let size0 = imageView.bounds.size
+            println("imageView w: \(size0.width)   h: \(size0.height)")
+            let viewSize = imageVC.view.bounds.size
+            let scaleX = size0.width / viewSize.width
+            let scaleY = size0.height / viewSize.height
+            let scale = min(scaleX, scaleY)
+            imageView.frame = CGRectMake(0, 0, size0.width / scale, size0.height/scale)
+            imageVC.view!.addSubview(imageView)
+            
+            showViewController(imageVC, sender: nil)
+        }
+    }
+
     // this allows reloadData() to be called
     // if reloadData isn't called the row heights are wrong after the first device rotation
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -108,6 +134,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
 
         case .MediaItems(let items):
             let image = items[0]
+            imageURL = image.url    // for segue
             let url = image.url
             if let imageData = NSData(contentsOfURL: url) {
                 cell.imageV.image = UIImage(data: imageData)
