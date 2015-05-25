@@ -13,7 +13,6 @@ import UIKit
 private struct MentionsConstants {
     static let CellReuseIdentifier = "mention"
     static let ImageViewIdentifier = "imageVC"
-    static let SegueToImageIdentifier = "mention-image"
 }
 
 class MentionsTVC: UITableViewController, UITableViewDelegate {
@@ -73,19 +72,10 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     }
 
     func displayImage(imageURL: NSURL) {
-        let imageVC = storyboard?.instantiateViewControllerWithIdentifier(MentionsConstants.ImageViewIdentifier) as! UIViewController
+        let imageVC = storyboard?.instantiateViewControllerWithIdentifier(MentionsConstants.ImageViewIdentifier) as! ImageVC
         if let imageData = NSData(contentsOfURL: imageURL) {
-            let imageView = UIImageView(image: UIImage(data: imageData))
-            let size0 = imageView.bounds.size
-            println("imageView w: \(size0.width)   h: \(size0.height)")
-            let viewSize = imageVC.view.bounds.size
-            let scaleX = size0.width / viewSize.width
-            let scaleY = size0.height / viewSize.height
-            let scale = min(scaleX, scaleY)
-            imageView.frame = CGRectMake(0, 0, size0.width / scale, size0.height/scale)
-            imageVC.view!.addSubview(imageView)
-            
-            showViewController(imageVC, sender: nil)
+            imageVC.imageView = UIImageView(image: UIImage(data: imageData))
+            showViewController(imageVC, sender: self)
         }
     }
 
