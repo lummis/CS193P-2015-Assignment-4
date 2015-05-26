@@ -183,7 +183,7 @@
                         <viewControllerLayoutGuide type="top" id="3uc-IC-T4X"/>
                         <viewControllerLayoutGuide type="bottom" id="O6Z-LQ-NXq"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="KtU-nP-VEf">
+                    <view key="view" contentMode="redraw" id="KtU-nP-VEf">
                         <rect key="frame" x="0.0" y="44" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.29411764709999999" green="1" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
