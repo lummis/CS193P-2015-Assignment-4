@@ -10,7 +10,7 @@ import UIKit
 
 class ImageVC: UIViewController, UIScrollViewDelegate {
 
-    var scrollView: UIScrollView!
+    @IBOutlet var scrollView: UIScrollView!
     var imageView: UIImageView?
     var aspectRatio: CGFloat = 1    // height / width
     var originalImageSize: CGSize = CGSizeZero
@@ -19,8 +19,7 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        scrollView = UIScrollView(frame: view.bounds)
+        println("in viewDidLoad; scrollView frame: \(scrollView.frame)")
         if let imageV = imageView {
             originalImageSize = imageV.bounds.size
             aspectRatio = originalImageSize.height / originalImageSize.width
@@ -29,19 +28,40 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
             scrollView.maximumZoomScale = 2.0
             scrollView.minimumZoomScale = 0.5
             scrollView.delegate = self
-            view.addSubview(scrollView)
-            autoZoom()
+
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        scrollView.frame = CGRectMake(scrollView.frame.origin.x, barHeights(),
+            view.frame.size.width, view.frame.size.height - barHeights())
+        scrollView.contentOffset = CGPointMake(0, 0)
+        
+        println("view frame: \(view.frame)")
+        println("scrollView frame: \(scrollView.frame)")
+        println("barHeights: \(barHeights())")
+
+        if !userDidZoom { autoZoom() }
+    }
+    
+    func barHeights() -> CGFloat {
+        let statusBarFrame = UIApplication.sharedApplication().statusBarFrame
+        let navBarFrame = UINavigationController().navigationBar.frame
+        return statusBarFrame.size.height + navBarFrame.size.height
     }
     
     // show as much of the image as possible but with no white space around it
     // set zoomScale so image fills scrollView in one direction and is larger than it in the other
     func autoZoom() {
-        let navBar = UINavigationController().navigationBar
-        let navBarHeight = navBar.bounds.size.height
-        println(navBarHeight)
+        println("in autoZoom; barHeights: \(barHeights())")
+        
+        scrollView.frame = CGRectMake(scrollView.frame.origin.x, barHeights(),
+            view.frame.size.width, view.frame.size.height - barHeights())
+        
         let scaleX = scrollView.bounds.size.width / originalImageSize.width
-        let scaleY = (scrollView.bounds.size.height - navBarHeight) / originalImageSize.height
+        let scaleY = (scrollView.bounds.size.height) / originalImageSize.height
         scrollView.zoomScale = max(scaleX, scaleY)
         scrollView.contentOffset = CGPointMake(0, 0)
     }
@@ -67,10 +87,10 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
         let navBar = UINavigationController().navigationBar
         let navBarHeight = navBar.bounds.size.height
         println("navBarHeight: \(navBarHeight)")
-        scrollView.frame = CGRectMake(0, navBarHeight, view.frame.size.width, (view.frame.size.height - navBarHeight))
+//        scrollView.frame = CGRectMake(0, barHeights(), view.frame.size.width, view.frame.size.height - barHeights())
         println("view frame: \(view.frame)")
         println("scrollView frame: \(scrollView.frame)")
-        autoZoom()
+        if !userDidZoom { autoZoom() }
     }
 
 }

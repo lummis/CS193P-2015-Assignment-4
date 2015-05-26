@@ -186,8 +186,23 @@
                     <view key="view" contentMode="redraw" id="KtU-nP-VEf">
                         <rect key="frame" x="0.0" y="44" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9o-8K-rXy">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" red="0.29411764709999999" green="1" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Z9o-8K-rXy" secondAttribute="trailing" id="3aB-mA-GwU"/>
+                            <constraint firstItem="Z9o-8K-rXy" firstAttribute="bottom" secondItem="O6Z-LQ-NXq" secondAttribute="top" id="Buk-Qg-uoh"/>
+                            <constraint firstItem="Z9o-8K-rXy" firstAttribute="leading" secondItem="KtU-nP-VEf" secondAttribute="leading" id="YQD-k2-7yc"/>
+                            <constraint firstItem="Z9o-8K-rXy" firstAttribute="top" secondItem="KtU-nP-VEf" secondAttribute="topMargin" id="fND-Xs-6tf"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="scrollView" destination="Z9o-8K-rXy" id="1PR-eD-Bs7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JdP-7u-Xka" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
