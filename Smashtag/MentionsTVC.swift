@@ -75,6 +75,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
         let imageVC = storyboard?.instantiateViewControllerWithIdentifier(MentionsConstants.ImageViewIdentifier) as! ImageVC
         if let imageData = NSData(contentsOfURL: imageURL) {
             imageVC.imageView = UIImageView(image: UIImage(data: imageData))
+            imageVC.title = "Image"
             showViewController(imageVC, sender: self)
         }
     }
