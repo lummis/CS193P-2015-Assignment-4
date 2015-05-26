@@ -187,7 +187,7 @@
                         <rect key="frame" x="0.0" y="44" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9o-8K-rXy">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z9o-8K-rXy">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
@@ -200,6 +200,8 @@
                             <constraint firstItem="Z9o-8K-rXy" firstAttribute="top" secondItem="KtU-nP-VEf" secondAttribute="topMargin" id="fND-Xs-6tf"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="scrollView" destination="Z9o-8K-rXy" id="1PR-eD-Bs7"/>
                     </connections>

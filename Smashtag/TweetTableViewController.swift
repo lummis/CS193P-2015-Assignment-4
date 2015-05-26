@@ -13,6 +13,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     let debugPrinting = false
     
+    deinit {
+        UIDevice.currentDevice().endGeneratingDeviceOrientationNotifications()
+    }
+    
     private struct TweetsConstants {
         static let CellReuseIdentifier = "tweet"
         static let TweetsMentionsSegueName: String = "tweets-mentions"
@@ -45,6 +49,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         refresh()
+        
+        UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

@@ -19,33 +19,48 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         println("in viewDidLoad; scrollView frame: \(scrollView.frame)")
         if let imageV = imageView {
             originalImageSize = imageV.bounds.size
             aspectRatio = originalImageSize.height / originalImageSize.width
             scrollView.addSubview(imageV)
             scrollView.contentSize = originalImageSize
-            scrollView.maximumZoomScale = 2.0
+            scrollView.maximumZoomScale = 5.0
             scrollView.minimumZoomScale = 0.5
             scrollView.delegate = self
-
         }
+        
     }
     
     override func viewDidAppear(animated: Bool) {
-        
         super.viewDidAppear(animated)
+        
         scrollView.frame = CGRectMake(scrollView.frame.origin.x, barHeights(),
             view.frame.size.width, view.frame.size.height - barHeights())
         scrollView.contentOffset = CGPointMake(0, 0)
         
-        println("view frame: \(view.frame)")
-        println("scrollView frame: \(scrollView.frame)")
-        println("barHeights: \(barHeights())")
-
-        if !userDidZoom { autoZoom() }
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector:"deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        
+        autoZoom()
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func deviceDidRotate() {
+        println("device did Rotate")
+        if !userDidZoom { autoZoom() }  // don't change the zoom scale if the user set it
+    }
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        println("viewForZooming...")
+        return imageView
+    }
+
     func barHeights() -> CGFloat {
         let statusBarFrame = UIApplication.sharedApplication().statusBarFrame
         let navBarFrame = UINavigationController().navigationBar.frame
@@ -54,26 +69,25 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
     
     // show as much of the image as possible but with no white space around it
     // set zoomScale so image fills scrollView in one direction and is larger than it in the other
+    // only autoZoom when the view appears or rotates AND the user hasn't changed the zoom manually
     func autoZoom() {
-        println("in autoZoom; barHeights: \(barHeights())")
+        println("autoZoom; barHeights: \(barHeights())")
         
         scrollView.frame = CGRectMake(scrollView.frame.origin.x, barHeights(),
             view.frame.size.width, view.frame.size.height - barHeights())
         
         let scaleX = scrollView.bounds.size.width / originalImageSize.width
         let scaleY = (scrollView.bounds.size.height) / originalImageSize.height
-        scrollView.zoomScale = max(scaleX, scaleY)
+        scrollView.setZoomScale(max(scaleX, scaleY), animated: true)
         scrollView.contentOffset = CGPointMake(0, 0)
+        userDidZoom = false     // this must be after setZoomScale
     }
-    
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        println("viewForZooming...")
-        return imageView
-    }
-    
+
+    // in lecture he said this indicates that the user zoomed the view but it doesn't
+    // this callback comes whenever the view is zoomed, by the used or by code
     func scrollViewDidZoom(scrollView: UIScrollView) {
         println("scrollViewDidZoom")
-        userDidZoom = true
+        userDidZoom = true  // if zoom caused by autoZoom this will immediately get set back to false
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -81,16 +95,20 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
         userDidScroll = true
     }
     
-    // scrollView doesn't get resized on rotate ???
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        println("did Rotate")
-        let navBar = UINavigationController().navigationBar
-        let navBarHeight = navBar.bounds.size.height
-        println("navBarHeight: \(navBarHeight)")
-//        scrollView.frame = CGRectMake(0, barHeights(), view.frame.size.width, view.frame.size.height - barHeights())
-        println("view frame: \(view.frame)")
-        println("scrollView frame: \(scrollView.frame)")
-        if !userDidZoom { autoZoom() }
-    }
+    
+//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+//    
+//        println("did Transition")
+//        if !userDidZoom { autoZoom() }
+//    }
+
+    
+    // scrollView doesn't resize on rotate ???
+//    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+//        super.didRotateFromInterfaceOrientation(fromInterfaceOrientation)
+//        println("did Rotate")
+//        if !userDidZoom { autoZoom() }
+//    }
 
 }

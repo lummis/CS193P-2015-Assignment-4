@@ -34,6 +34,23 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     }
     var textForNextSearch: String!  // copied to TweetTableViewController during unwind segue
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector:"deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        let center = NSNotificationCenter.defaultCenter()
+        center.removeObserver(self)
+    }
+    
+    func deviceDidRotate() {
+        // if reloadData isn't called the row heights revert to storyboard heights instead of autoLayout
+        tableView.reloadData()
+    }
+    
     // MARK: - Table view delegate
     
     // if an image is present it will always be in row 0
@@ -82,11 +99,12 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
 
     // this allows reloadData() to be called
     // if reloadData isn't called the row heights are wrong after the first device rotation
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        println("rotate")
-        self.tableView.reloadData()
-    }
+    
+//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+//        println("rotate")
+//        self.tableView.reloadData()
+//    }
     
     // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
