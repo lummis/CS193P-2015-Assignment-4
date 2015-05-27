@@ -30,7 +30,11 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
             scrollView.minimumZoomScale = 0.5
             scrollView.delegate = self
         }
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -39,9 +43,6 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
         scrollView.frame = CGRectMake(scrollView.frame.origin.x, barHeights(),
             view.frame.size.width, view.frame.size.height - barHeights())
         scrollView.contentOffset = CGPointMake(0, 0)
-        
-        let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector:"deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
         
         autoZoom()
     }

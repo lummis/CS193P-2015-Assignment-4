@@ -34,17 +34,27 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     }
     var textForNextSearch: String!  // copied to TweetTableViewController during unwind segue
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector:"deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        let center = NSNotificationCenter.defaultCenter()
-        center.removeObserver(self)
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+//        let center = NSNotificationCenter.defaultCenter()
+//        center.addObserver(self, selector:"deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        tableView.reloadData()
+    }
+    
+//    override func viewWillDisappear(animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        let center = NSNotificationCenter.defaultCenter()
+//        center.removeObserver(self)
+//    }
     
     func deviceDidRotate() {
         // if reloadData isn't called the row heights revert to storyboard heights instead of autoLayout
