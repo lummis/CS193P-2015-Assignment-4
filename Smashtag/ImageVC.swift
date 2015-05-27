@@ -95,21 +95,5 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
         println("scrollViewDidScroll")
         userDidScroll = true
     }
-    
-    
-//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-//    
-//        println("did Transition")
-//        if !userDidZoom { autoZoom() }
-//    }
-
-    
-    // scrollView doesn't resize on rotate ???
-//    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-//        super.didRotateFromInterfaceOrientation(fromInterfaceOrientation)
-//        println("did Rotate")
-//        if !userDidZoom { autoZoom() }
-//    }
 
 }

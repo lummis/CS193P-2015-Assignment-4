@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 ElectricTurkeySoftware. All rights reserved.
 //
 
-//  This class deals with just a single tweet
+//  This class shows details for a single tweet
 
 import UIKit
 
@@ -45,16 +45,8 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-//        let center = NSNotificationCenter.defaultCenter()
-//        center.addObserver(self, selector:"deviceDidRotate", name: UIDeviceOrientationDidChangeNotification, object: nil)
-        tableView.reloadData()
+        tableView.reloadData()  // seems to be needed to make row heights be right
     }
-    
-//    override func viewWillDisappear(animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        let center = NSNotificationCenter.defaultCenter()
-//        center.removeObserver(self)
-//    }
     
     func deviceDidRotate() {
         // if reloadData isn't called the row heights revert to storyboard heights instead of autoLayout
@@ -100,21 +92,18 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
 
     func displayImage(imageURL: NSURL) {
         let imageVC = storyboard?.instantiateViewControllerWithIdentifier(MentionsConstants.ImageViewIdentifier) as! ImageVC
-        if let imageData = NSData(contentsOfURL: imageURL) {
-            imageVC.imageView = UIImageView(image: UIImage(data: imageData))
-            imageVC.title = "Image"
-            showViewController(imageVC, sender: self)
+        let qos = Int(QOS_CLASS_USER_INITIATED.value)
+        let queue = dispatch_get_global_queue(qos, 0)
+        dispatch_async(queue) {
+            if let imageData = NSData(contentsOfURL: imageURL) {
+                dispatch_async(dispatch_get_main_queue()) {
+                    imageVC.imageView = UIImageView(image: UIImage(data: imageData))
+                    imageVC.title = "Image"
+                    self.showViewController(imageVC, sender: self)
+                }
+            }
         }
     }
-
-    // this allows reloadData() to be called
-    // if reloadData isn't called the row heights are wrong after the first device rotation
-    
-//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-//        println("rotate")
-//        self.tableView.reloadData()
-//    }
     
     // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -153,11 +142,18 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
 
         case .MediaItems(let items):
             let image = items[0]
-            imageURL = image.url    // for segue
+            imageURL = image.url    // for ImageVC
             let url = image.url
-            if let imageData = NSData(contentsOfURL: url) {
-                cell.imageV.image = UIImage(data: imageData)
-            }
+            let qos = Int(QOS_CLASS_USER_INITIATED.value)
+            let queue = dispatch_get_global_queue(qos, 0)
+            dispatch_async(queue, {
+                if let imageData = NSData(contentsOfURL: url) {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        cell.imageV.image = UIImage(data: imageData)
+                    })
+                }
+            })
+            
             cell.imageV.hidden = false
             cell.mentionLabel1.hidden = true
         }
@@ -179,33 +175,4 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
         }
         return word
     }
-    
-//    // required if viewForHeaderInSection is implemented
-//    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 30
-//    }
-//
-////     if implemented overrides the header text given in ...titleForHeaderInSection
-////     I'm implementing this so I can specify colors
-//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        super.tableView(tableView, viewForHeaderInSection: section)
-//        let view: UILabel = UILabel( frame: CGRectNull )    // size will be overridden by tableView
-//        view.backgroundColor = UIColor.lightGrayColor()
-//        view.textColor = UIColor.whiteColor()
-//
-//        var sectionHeader = ""
-//        switch mentions[section] {
-//        case .UserItems(let userMentions):
-//            sectionHeader = "Users"
-//        case .HashtagItems(let hashtagMentions):
-//            sectionHeader = "Hashtags"
-//        case .UrlItems(let urlMentions):
-//            sectionHeader = "URLs"
-//        case .MediaItems(let mediaMentions):
-//            sectionHeader = "Images"
-//        }
-//        view.text = sectionHeader
-//        return view
-//    }
-
 }
