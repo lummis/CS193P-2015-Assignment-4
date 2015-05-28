@@ -1,16 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Aaj-sa-2bM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4GK-fk-hig">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Tweet Table View Controller-->
+        <!--Navigation Controller (recents)-->
+        <scene sceneID="zOd-gw-ZXs">
+            <objects>
+                <navigationController title="Recent Searches" id="KYR-nZ-iez" userLabel="Navigation Controller (recents)" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Recent Searches" id="E7H-7B-SaO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gQF-vB-vI0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Ujj-jh-MKQ" kind="relationship" relationship="rootViewController" id="R3j-oZ-i3c"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nSN-Km-wZg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="159" y="-313"/>
+        </scene>
+        <!--RecentsVC-->
+        <scene sceneID="o5c-lp-bfY">
+            <objects>
+                <viewController title="Recents" id="Ujj-jh-MKQ" userLabel="RecentsVC" customClass="RecentsVC" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ye0-XF-9Oc"/>
+                        <viewControllerLayoutGuide type="bottom" id="NSr-HG-T9n"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0B4-uu-YNs">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Recent Searches" id="nGs-rA-tjB"/>
+                    <navigationItem key="navigationItem" id="Y0R-fd-r96"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jv7-FI-v2T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="857" y="-313"/>
+        </scene>
+        <!--Search-->
         <scene sceneID="wIy-ym-Lpc">
             <objects>
-                <tableViewController id="vS4-A3-Zva" customClass="TweetTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="vS4-A3-Zva" userLabel="Search" customClass="TweetTableViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ctz-j5-Wmh">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="44" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <textField key="tableHeaderView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="bezel" placeholder="Search Text" minimumFontSize="16" id="YLT-Je-awe" userLabel="Search For...">
@@ -83,6 +120,8 @@
                             <outlet property="delegate" destination="vS4-A3-Zva" id="Rs0-oy-EiF"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <tabBarItem key="tabBarItem" title="Search" id="xj0-PT-L2n"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="fxL-4M-Zm5">
                         <nil key="title"/>
@@ -92,6 +131,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="bcu-wb-cnu">
                         <autoresizingMask key="autoresizingMask"/>
@@ -147,6 +187,7 @@
                                 <connections>
                                     <outlet property="imageV" destination="cRC-SD-bz4" id="bWi-jB-Vyk"/>
                                     <outlet property="mentionLabel1" destination="AzB-gO-BHI" id="uyK-zP-Apf"/>
+                                    <segue destination="zfp-J8-ncl" kind="unwind" identifier="unwindToSearches" unwindAction="unwindToSearches:" id="tck-SM-3dU"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -159,9 +200,6 @@
                     <navigationItem key="navigationItem" id="bs2-cW-qdQ"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <connections>
-                        <segue destination="zfp-J8-ncl" kind="unwind" identifier="unwindToTweets" unwindAction="unwindToTweets:" id="I01-Kr-5fa"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K0J-ED-xK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="zfp-J8-ncl" userLabel="Exit" sceneMemberID="exit"/>
@@ -174,6 +212,42 @@
                 </navigationBar>
             </objects>
             <point key="canvasLocation" x="857" y="1071"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="rOt-J8-AGQ">
+            <objects>
+                <tabBarController id="4GK-fk-hig" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="UAt-Bg-Saz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="S5n-XI-ZPc" kind="relationship" relationship="viewControllers" id="ek6-mR-WRT"/>
+                        <segue destination="KYR-nZ-iez" kind="relationship" relationship="viewControllers" id="vR2-o1-Z5q"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X6j-Yd-DD2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-742" y="145"/>
+        </scene>
+        <!--Navigation Controller (search)-->
+        <scene sceneID="YcJ-4B-abc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="S5n-XI-ZPc" userLabel="Navigation Controller (search)" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" id="POy-bM-liK"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tqy-cx-NJV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vS4-A3-Zva" kind="relationship" relationship="rootViewController" id="5di-ws-thr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gnI-7e-LKl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="159" y="367"/>
         </scene>
         <!--View Controller (image)-->
         <scene sceneID="2dw-iO-lbg">
@@ -209,24 +283,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JdP-7u-Xka" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1517" y="1071"/>
-        </scene>
-        <!--Navigation Controller tweets)-->
-        <scene sceneID="3qj-l9-9Jn">
-            <objects>
-                <navigationController storyboardIdentifier="navControllerForTweets" automaticallyAdjustsScrollViewInsets="NO" id="Aaj-sa-2bM" userLabel="Navigation Controller tweets)" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oAY-mT-htD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="vS4-A3-Zva" kind="relationship" relationship="rootViewController" id="EOe-Xv-cOD"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NrX-x9-eOt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="159" y="397"/>
         </scene>
         <!--Navigation Controller (MentionsTVC)-->
         <scene sceneID="YAF-pH-lTB">

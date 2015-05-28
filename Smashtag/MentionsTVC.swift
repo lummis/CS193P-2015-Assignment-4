@@ -78,7 +78,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
         switch firstChar {
             case "#", "@":
             textForNextSearch = cellText
-            performSegueWithIdentifier("unwindToTweets", sender: self)
+            performSegueWithIdentifier("unwindToSearches", sender: self)
             
         case "h":
             let theURL: NSURL = NSURL(string: cellText)!

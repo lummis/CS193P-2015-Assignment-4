@@ -24,7 +24,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     var tweets = [[Tweet]]()
     
-    var searchText: String? = "#auditography" {   // initial search text
+//    var searchText: String? = "#DARPADRC" {   // initial search text
+        var searchText: String? = "#auditography" {   // initial search text
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText  // just in case somebody updates public searchText
@@ -191,9 +192,13 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         return cell
     }
 
-    @IBAction private func unwindToTweets(sender: UIStoryboardSegue) {
+    @IBAction private func unwindToSearches(sender: UIStoryboardSegue) {
         let sourceViewController = sender.sourceViewController as! MentionsTVC
         searchText = sourceViewController.textForNextSearch
+    }
+    
+    func canPerformUnwindSegueAction(action:Selector, fromViewController:MentionsTVC, sender:AnyObject) () -> Bool {
+        return true
     }
     
     /*
