@@ -143,7 +143,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let isImageCell: Bool = hasImage && indexPath.row == 0 // image cell if true, else text cell
+        let isImageCell: Bool = hasImage && indexPath.section == 0 && indexPath.row == 0 // image cell if true, else text cell
         switch isImageCell {
         case true:
             let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.ImageCellIdentifier, forIndexPath: indexPath) as! ImageMentionCell
