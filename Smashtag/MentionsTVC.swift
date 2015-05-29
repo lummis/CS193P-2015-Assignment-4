@@ -90,6 +90,22 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
         }
     }
 
+//    func displayImage(imageURL: NSURL) {
+//        let imageVC = storyboard?.instantiateViewControllerWithIdentifier(MentionsConstants.ImageViewIdentifier) as! ImageVC
+////        let imageVC = storyboard?.instantiateViewControllerWithIdentifier("navcon_image") as! ImageVC
+//        let qos = Int(QOS_CLASS_USER_INITIATED.value)
+//        let queue = dispatch_get_global_queue(qos, 0)
+//        dispatch_async(queue) {
+//            if let imageData = NSData(contentsOfURL: imageURL) {
+//                dispatch_async(dispatch_get_main_queue()) {
+//                    imageVC.imageView = UIImageView(image: UIImage(data: imageData))
+//                    imageVC.title = "Image"
+//                    self.showViewController(imageVC, sender: self)
+//                }
+//            }
+//        }
+//    }
+    
     func displayImage(imageURL: NSURL) {
         let imageVC = storyboard?.instantiateViewControllerWithIdentifier(MentionsConstants.ImageViewIdentifier) as! ImageVC
         let qos = Int(QOS_CLASS_USER_INITIATED.value)
@@ -98,11 +114,6 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
             if let imageData = NSData(contentsOfURL: imageURL) {
                 dispatch_async(dispatch_get_main_queue()) {
                     imageVC.imageView = UIImageView(image: UIImage(data: imageData))
-                    imageVC.title = "Image"
-                    self.showViewController(imageVC, sender: self)
-                }
-            }
-        }
     }
     
     // MARK: - Table view data source
