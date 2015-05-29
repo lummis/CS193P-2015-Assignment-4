@@ -11,8 +11,9 @@
 import UIKit
 
 private struct MentionsConstants {
-    static let CellReuseIdentifier = "mention"
     static let ImageViewIdentifier = "imageVC"
+    static let ImageCellIdentifier = "imageCell"
+    static let TextCellIdentifier = "textCell"
 }
 
 class MentionsTVC: UITableViewController, UITableViewDelegate {
@@ -45,7 +46,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        tableView.reloadData()  // seems to be needed to make row heights be right
+        tableView.reloadData()  // seems to be needed else row heights are wrong
     }
     
     func deviceDidRotate() {
@@ -56,24 +57,24 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     // MARK: - Table view delegate
     
     // if an image is present it will always be in row 0
-    // the code has an array of .MediaItems so there could be more than one
-    // but we will only show the first image
-    // in practice there seems to never be more than one. Maybe twitter doesn't support >1.
+    // the twitter API has an array of .MediaItems so there could be more than one
+    // but we show the first image; in practice there seems to never be more than one
+    // maybe twitter doesn't support >1.
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0 && hasImage {
             return 100.0 / aspectRatio
         } else { return UITableViewAutomaticDimension }
     }
     
-     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {                          // ????????????????
         
         if imageURL != nil && indexPath.section == 0 {
-                displayImage(imageURL!)
-                return
+            displayImage(imageURL!)
+            return
         }
         
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! MentionsTableViewCell
-        let cellText = cell.mentionLabel1.text!
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! TextMentionCell
+        let cellText = cell.mentionText.text!   // ! is so cellText is not an optional, so startIndex can be used on it
         let firstChar = cellText[cellText.startIndex]
         switch firstChar {
             case "#", "@":
@@ -106,7 +107,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
 //        }
 //    }
     
-    func displayImage(imageURL: NSURL) {
+    func displayImage(imageURL: NSURL) {                                                                                            // ????????????????
         let imageVC = storyboard?.instantiateViewControllerWithIdentifier(MentionsConstants.ImageViewIdentifier) as! ImageVC
         let qos = Int(QOS_CLASS_USER_INITIATED.value)
         let queue = dispatch_get_global_queue(qos, 0)
@@ -114,6 +115,9 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
             if let imageData = NSData(contentsOfURL: imageURL) {
                 dispatch_async(dispatch_get_main_queue()) {
                     imageVC.imageView = UIImageView(image: UIImage(data: imageData))
+                }
+            }
+        }
     }
     
     // MARK: - Table view data source
@@ -122,54 +126,72 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        // is there a more succinct way to write this?
         switch mentions[section] {
         case .UrlItems( let items ):
             return items.count
         case .UserItems( let items ):
             return items.count
         case .MediaItems( let items):
-            return items.count
+            return 1    // we're only going to show one image even if there are >1
         case .HashtagItems( let items ):
             return items.count
         }
+        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! MentionsTableViewCell
-        cell.imageV.hidden = true           // reverse for image case
-        cell.mentionLabel1.hidden = false   // reverse for image case
-        
-        switch mentions[indexPath.section] {
+        let isImageCell: Bool = hasImage && indexPath.row == 0 // image cell if true, else text cell
+        switch isImageCell {
+        case true:
+            let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.ImageCellIdentifier, forIndexPath: indexPath) as! ImageMentionCell
+            switch mentions[indexPath.section] {
+            case .MediaItems(let items):
+                let image = items[0]
+                imageURL = image.url    // for ImageVC
+                aspectRatio = CGFloat(image.aspectRatio)
+                let qos = Int(QOS_CLASS_USER_INITIATED.value)
+                let queue = dispatch_get_global_queue(qos, 0)
+                dispatch_async(queue, {
+                    if let imageData = NSData(contentsOfURL: self.imageURL!) {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            cell.imageV.image = UIImage(data: imageData)
+                        })
+                    }
+                })
+                return cell as UITableViewCell
+            default:
+//                return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "dummyImageCell")
+                break
+            }
             
-        case .UserItems(let items):
-            cell.mentionLabel1.text = items[indexPath.row]
-
-        case .HashtagItems(let items):
-            cell.mentionLabel1.text = items[indexPath.row]
-
-        case .UrlItems(let items):
-            cell.mentionLabel1.text = items[indexPath.row]
-
-        case .MediaItems(let items):
-            let image = items[0]
-            imageURL = image.url    // for ImageVC
-            let url = image.url
-            let qos = Int(QOS_CLASS_USER_INITIATED.value)
-            let queue = dispatch_get_global_queue(qos, 0)
-            dispatch_async(queue, {
-                if let imageData = NSData(contentsOfURL: url) {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        cell.imageV.image = UIImage(data: imageData)
-                    })
-                }
-            })
+        case false:
+            let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.TextCellIdentifier, forIndexPath: indexPath) as! TextMentionCell
+            switch mentions[indexPath.section] {
+                
+            case .UserItems(let items):
+                cell.mentionText.text = items[indexPath.row]
+                
+            case .HashtagItems(let items):
+                cell.mentionText.text = items[indexPath.row]
+                
+            case .UrlItems(let items):
+                cell.mentionText.text = items[indexPath.row]
+                
+            default:
+//                return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "dummyTextCell")
+                break
+            }
+            return cell as UITableViewCell
             
-            cell.imageV.hidden = false
-            cell.mentionLabel1.hidden = true
+        default:
+//            return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "dummy")
+            break
         }
-        
-        return cell
+        return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "dummy")
+
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

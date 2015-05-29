@@ -26,13 +26,13 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
 //    var searchText: String? = "#DARPADRC" {   // initial search text
         var searchText: String? = "#auditography" {   // initial search text
-        didSet {
-            lastSuccessfulRequest = nil
-            searchTextField?.text = searchText  // just in case somebody updates public searchText
-            tweets.removeAll()
-            tableView.reloadData()
-            refresh()
-        }
+            didSet {
+                lastSuccessfulRequest = nil
+                searchTextField?.text = searchText  // just in case somebody updates public searchText
+                tweets.removeAll()
+                tableView.reloadData()
+                refresh()
+            }
     }
     
     enum MentionedItems {
@@ -82,19 +82,18 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     @IBAction private func refreshAction(sender: UIRefreshControl?) {
         println("refreshAction")
-        
-            if let request = nextRequestToAttempt {
-                request.fetchTweets { (newTweets) -> Void in
-                    dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                        if newTweets.count > 0 {
-                            self.lastSuccessfulRequest = request
-                            self.tweets.insert(newTweets, atIndex: 0)
-                            self.tableView.reloadData()
-                        }
-                        self.refreshControl?.endRefreshing()
+        if let request = nextRequestToAttempt {
+            request.fetchTweets { (newTweets) -> Void in
+                dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                    if newTweets.count > 0 {
+                        self.lastSuccessfulRequest = request
+                        self.tweets.insert(newTweets, atIndex: 0)
+                        self.tableView.reloadData()
                     }
+                    self.refreshControl?.endRefreshing()
                 }
-            } else {
+            }
+        } else {
            sender?.endRefreshing()
         }
     }
@@ -134,7 +133,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
         if medias.count > 0 {
             mentions.append( MentionedItems.MediaItems( medias ))
-//            aspectRatio = CGFloat(medias[0].aspectRatio) // LAME! - only show the first image
         }
         
         var screenNames: [String] = []
