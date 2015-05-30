@@ -11,7 +11,6 @@
 import UIKit
 
 private struct MentionsConstants {
-    static let ImageViewIdentifier = "imageVC"
     static let ImageCellIdentifier = "imageCell"
     static let TextCellIdentifier = "textCell"
 }
@@ -140,6 +139,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {     // >>>>>>>>>
         
         let isImageCell: Bool = hasImage && indexPath.section == 0 && indexPath.row == 0 // image cell if true, else text cell
         switch isImageCell {
+            
         case true:
             let cell = tableView.dequeueReusableCellWithIdentifier(MentionsConstants.ImageCellIdentifier, forIndexPath: indexPath) as! ImageMentionCell
             switch mentions[indexPath.section] {
@@ -179,11 +179,13 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {     // >>>>>>>>>
             }
             return cell as UITableViewCell
             
+            // compiler doesn't know true and false are the only possible cases for switch on a Bool
+            // so default is needed
         default:
             break
         }
+        
         return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "dummy")
-
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

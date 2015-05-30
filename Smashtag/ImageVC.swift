@@ -27,7 +27,6 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        println("in viewDidAppear; scrollView frame: \(scrollView.frame)")
         if let imageV = imageView {
             originalImageSize = imageV.bounds.size
             scrollView.addSubview(imageV)
@@ -39,18 +38,11 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
     func deviceDidRotate() {
-        println("device did Rotate")
         if !userDidZoom { autoZoom() }  // don't change the zoom scale if the user set it
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        println("viewForZooming...")
         return imageView
     }
 
@@ -76,10 +68,13 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
         let scaleY = (scrollView.frame.size.height - topBarHeight) / originalImageSize.height
         scrollView.setZoomScale(max(scaleX, scaleY), animated: true)
         scrollView.contentOffset = CGPointMake(0, -topBarHeight)
-        userDidZoom = false     // this must be after setZoomScale
+        
+        // this must be after setZoomScale because that causes userDidZoom to be set true
+        // this is only valid because autoZoom is never called after the user has manually zoomed
+        userDidZoom = false
     }
 
-    // in lecture he said this callback means the user zoomed the view but instead
+    // in lecture he said this callback means the user zoomed the view but that's not right
     // this callback comes whenever the view is zoomed, whether by the used or by code
     func scrollViewDidZoom(scrollView: UIScrollView) {
         println("scrollViewDidZoom")
