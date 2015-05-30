@@ -16,7 +16,15 @@ private struct MentionsConstants {
     static let TextCellIdentifier = "textCell"
 }
 
-class MentionsTVC: UITableViewController, UITableViewDelegate {
+class ImageMentionCell: UITableViewCell {                           // >>>>>>>>>>>>>>> CLASS <<<<<<<<<<<<<<<
+    @IBOutlet weak var imageV: UIImageView!
+}
+
+class TextMentionCell: UITableViewCell {                            // >>>>>>>>>>>>>>> CLASS <<<<<<<<<<<<<<<
+    @IBOutlet weak var mentionText: UILabel!
+}
+
+class MentionsTVC: UITableViewController, UITableViewDelegate {     // >>>>>>>>>>>>>>> CLASS <<<<<<<<<<<<<<<
     
     var aspectRatio: CGFloat = 1
     var hasImage: Bool = false

@@ -176,7 +176,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="mentionText" destination="AzB-gO-BHI" id="BvX-7F-Rbv"/>
+                                    <outlet property="mentionText" destination="AzB-gO-BHI" id="UQN-lE-5b9"/>
                                     <segue destination="zfp-J8-ncl" kind="unwind" identifier="unwindToSearches" unwindAction="unwindToSearches:" id="tck-SM-3dU"/>
                                 </connections>
                             </tableViewCell>
@@ -200,7 +200,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="imageV" destination="cRC-SD-bz4" id="SV9-5c-kiK"/>
+                                    <outlet property="imageV" destination="cRC-SD-bz4" id="LIS-ub-t7S"/>
                                     <segue destination="FNM-6W-LsI" kind="show" identifier="showImage" id="YRM-U0-T4r"/>
                                 </connections>
                             </tableViewCell>
