@@ -68,8 +68,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {                          // ????????????????
         
-        if imageURL != nil && indexPath.section == 0 {
-            displayImage(imageURL!)
+        if imageURL != nil && indexPath.section == 0 && indexPath.row == 0 {
             return
         }
         
@@ -90,31 +89,20 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
             break
         }
     }
-
-//    func displayImage(imageURL: NSURL) {
-//        let imageVC = storyboard?.instantiateViewControllerWithIdentifier(MentionsConstants.ImageViewIdentifier) as! ImageVC
-////        let imageVC = storyboard?.instantiateViewControllerWithIdentifier("navcon_image") as! ImageVC
-//        let qos = Int(QOS_CLASS_USER_INITIATED.value)
-//        let queue = dispatch_get_global_queue(qos, 0)
-//        dispatch_async(queue) {
-//            if let imageData = NSData(contentsOfURL: imageURL) {
-//                dispatch_async(dispatch_get_main_queue()) {
-//                    imageVC.imageView = UIImageView(image: UIImage(data: imageData))
-//                    imageVC.title = "Image"
-//                    self.showViewController(imageVC, sender: self)
-//                }
-//            }
-//        }
-//    }
     
-    func displayImage(imageURL: NSURL) {                                                                                            // ????????????????
-        let imageVC = storyboard?.instantiateViewControllerWithIdentifier(MentionsConstants.ImageViewIdentifier) as! ImageVC
-        let qos = Int(QOS_CLASS_USER_INITIATED.value)
-        let queue = dispatch_get_global_queue(qos, 0)
-        dispatch_async(queue) {
-            if let imageData = NSData(contentsOfURL: imageURL) {
-                dispatch_async(dispatch_get_main_queue()) {
-                    imageVC.imageView = UIImageView(image: UIImage(data: imageData))
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        
+        if segue.identifier == "showImage" {
+            let imageVC = segue.destinationViewController as! ImageVC
+            imageVC.title = "The Image"
+            let qos = Int(QOS_CLASS_USER_INITIATED.value)
+            let queue = dispatch_get_global_queue(qos, 0)
+            dispatch_async(queue) {
+                if let imageData = NSData(contentsOfURL: self.imageURL!) {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        imageVC.imageView = UIImageView(image: UIImage(data: imageData))
+                    }
                 }
             }
         }
@@ -127,7 +115,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        // is there a more succinct way to write this?
+        // seems like there should be a more succinct way to write this
         switch mentions[section] {
         case .UrlItems( let items ):
             return items.count
@@ -138,7 +126,6 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
         case .HashtagItems( let items ):
             return items.count
         }
-        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -163,7 +150,6 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
                 })
                 return cell as UITableViewCell
             default:
-//                return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "dummyImageCell")
                 break
             }
             
@@ -181,13 +167,11 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {
                 cell.mentionText.text = items[indexPath.row]
                 
             default:
-//                return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "dummyTextCell")
                 break
             }
             return cell as UITableViewCell
             
         default:
-//            return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "dummy")
             break
         }
         return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "dummy")

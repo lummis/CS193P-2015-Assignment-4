@@ -201,6 +201,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="imageV" destination="cRC-SD-bz4" id="SV9-5c-kiK"/>
+                                    <segue destination="FNM-6W-LsI" kind="show" identifier="showImage" id="YRM-U0-T4r"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -271,11 +272,11 @@
                         <viewControllerLayoutGuide type="bottom" id="O6Z-LQ-NXq"/>
                     </layoutGuides>
                     <view key="view" contentMode="redraw" id="KtU-nP-VEf">
-                        <rect key="frame" x="0.0" y="44" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9o-8K-rXy">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="512"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
                         </subviews>
