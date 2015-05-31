@@ -14,33 +14,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <connections>
-                        <segue destination="Ujj-jh-MKQ" kind="relationship" relationship="rootViewController" id="R3j-oZ-i3c"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nSN-Km-wZg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="159" y="-313"/>
-        </scene>
-        <!--RecentsVC-->
-        <scene sceneID="o5c-lp-bfY">
-            <objects>
-                <viewController title="Recents" id="Ujj-jh-MKQ" userLabel="RecentsVC" customClass="RecentsVC" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ye0-XF-9Oc"/>
-                        <viewControllerLayoutGuide type="bottom" id="NSr-HG-T9n"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0B4-uu-YNs">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Recent Searches" id="nGs-rA-tjB"/>
-                    <navigationItem key="navigationItem" id="Y0R-fd-r96"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jv7-FI-v2T" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="857" y="-313"/>
         </scene>
         <!--Search-->
         <scene sceneID="wIy-ym-Lpc">

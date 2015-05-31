@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7D821DE41B02EEA700F668B9 /* MentionsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D821DE31B02EEA700F668B9 /* MentionsTVC.swift */; };
-		7DC9F33E1B16733F0034A4D4 /* RecentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC9F33D1B16733F0034A4D4 /* RecentsVC.swift */; };
 		7DE7C98B1AFD70C30051596A /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7C98A1AFD70C30051596A /* TweetTableViewCell.swift */; };
 		7DE8E1FC1AFC3B1A00C84317 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE8E1FB1AFC3B1A00C84317 /* AppDelegate.swift */; };
 		7DE8E2011AFC3B1A00C84317 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DE8E1FF1AFC3B1A00C84317 /* Main.storyboard */; };
@@ -34,7 +33,6 @@
 
 /* Begin PBXFileReference section */
 		7D821DE31B02EEA700F668B9 /* MentionsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsTVC.swift; sourceTree = "<group>"; };
-		7DC9F33D1B16733F0034A4D4 /* RecentsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentsVC.swift; sourceTree = "<group>"; };
 		7DE7C98A1AFD70C30051596A /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
 		7DE8E1F61AFC3B1A00C84317 /* Smashtag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Smashtag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DE8E1FA1AFC3B1A00C84317 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -93,7 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				7DE8E1FF1AFC3B1A00C84317 /* Main.storyboard */,
-				7DC9F33D1B16733F0034A4D4 /* RecentsVC.swift */,
 				7DF5D61E1B1274FE000BCC40 /* ImageVC.swift */,
 				7D821DE31B02EEA700F668B9 /* MentionsTVC.swift */,
 				7DE8E21B1AFC3C0000C84317 /* TweetTableViewController.swift */,
@@ -247,7 +244,6 @@
 				7DF5D61F1B1274FE000BCC40 /* ImageVC.swift in Sources */,
 				7DE8E2231AFC40E500C84317 /* Tweet.swift in Sources */,
 				7DE8E2221AFC40E500C84317 /* MediaItem.swift in Sources */,
-				7DC9F33E1B16733F0034A4D4 /* RecentsVC.swift in Sources */,
 				7DE8E1FC1AFC3B1A00C84317 /* AppDelegate.swift in Sources */,
 				7DE8E2241AFC40E500C84317 /* TwitterRequest.swift in Sources */,
 				7DE8E2251AFC40E500C84317 /* User.swift in Sources */,
