@@ -65,6 +65,7 @@
                                 <connections>
                                     <outlet property="recentSearchDate" destination="jcc-yo-YDW" id="ZC1-D5-3jb"/>
                                     <outlet property="recentSearchString" destination="cA4-5h-9bk" id="YTa-Qj-6qI"/>
+                                    <segue destination="vS4-A3-Zva" kind="show" identifier="recents-search" id="uHf-KE-Wq4"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -192,7 +193,7 @@
             <objects>
                 <tableViewController modalTransitionStyle="partialCurl" id="0aP-Yr-Erf" userLabel="MentionsTVC" customClass="MentionsTVC" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="Owj-Va-EOL">
-                        <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                        <rect key="frame" x="0.0" y="44" width="600" height="512"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -361,6 +362,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kEV-zn-6aW"/>
+        <segue reference="uHf-KE-Wq4"/>
+        <segue reference="zTH-LH-8YR"/>
     </inferredMetricsTieBreakers>
 </document>

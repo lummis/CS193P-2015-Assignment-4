@@ -23,15 +23,15 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     var tweets = [[Tweet]]()
     
 //    var searchText: String? = "#DARPADRC" {   // initial search text
-        var searchText: String? = "#auditography" {   // initial search text
-            didSet {
-                lastSuccessfulRequest = nil
-                searchTextField?.text = searchText  // just in case somebody updates public searchText
-                tweets.removeAll()
-                tableView.reloadData()
-                refresh()
-                SearchHistory.sharedHistory.addSearchToHistory(searchText!)
-            }
+    var searchText: String? = "#auditography" {   // initial search text
+        didSet {
+            lastSuccessfulRequest = nil
+            searchTextField?.text = searchText  // just in case somebody updates public searchText
+            tweets.removeAll()
+            tableView.reloadData()
+            refresh()
+            SearchHistory.sharedHistory.addSearchToHistory(searchText!)
+        }
     }
     
     enum MentionedItems {

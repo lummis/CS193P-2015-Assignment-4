@@ -46,9 +46,9 @@ class RecentsTVC: UITableViewController {        // >>>>>>>>>>>>>>> CLASS <<<<<<
         
         let cell = tableView.dequeueReusableCellWithIdentifier("recentCell", forIndexPath: indexPath) as! RecentsTVCell
         cell.recentSearchString.text = recentSearches[indexPath.row].searchString
-        let searchDate = recentSearches[indexPath.row].searchDate
         
         let formatter = NSDateFormatter()
+        let searchDate = recentSearches[indexPath.row].searchDate
         if NSDate().timeIntervalSinceDate(searchDate) > 24*60*60 {
             formatter.dateStyle = NSDateFormatterStyle.ShortStyle
         } else {
@@ -57,6 +57,19 @@ class RecentsTVC: UITableViewController {        // >>>>>>>>>>>>>>> CLASS <<<<<<
         cell.recentSearchDate.text = formatter.stringFromDate(searchDate)
         
         return cell
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        
+        println("prepare")
+        if segue.identifier == "recents-search" {
+            if let vc = segue.destinationViewController as? TweetTableViewController {
+                if let text = (sender as? RecentsTVCell)!.recentSearchString.text {
+                    vc.searchText = text
+                }
+            }
+        }
     }
 
 }
