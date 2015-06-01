@@ -10,51 +10,43 @@ import UIKit
 
 class RecentsTVCell: UITableViewCell {           // >>>>>>>>>>>>>>> CLASS <<<<<<<<<<<<<<<
     
-    @IBOutlet weak var recentL: UILabel!
+    @IBOutlet weak var recentSearchString: UILabel!
+    @IBOutlet weak var recentSearchDate: UILabel!
     
 }
 
-class RecentsTVC: UITableViewController {       // >>>>>>>>>>>>>>> CLASS <<<<<<<<<<<<<<<
+class RecentsTVC: UITableViewController {        // >>>>>>>>>>>>>>> CLASS <<<<<<<<<<<<<<<
 
     @IBOutlet var recentsTV: UITableView!
     
-    var recentSearches: [SearchHistory.Search] = [] {
-        didSet {
-            println("recentSearches/didSet; recentSearches.count: \(recentSearches.count)")
-        }
-    }
+    var recentSearches: [SearchHistory.Search] = []
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        refreshRecentSearches()
-        self.tableView.reloadData()
-        println("RecentsTVC/viewWillAppear; recentSearches.count: \(recentSearches.count)")
-    }
-    
-    private func refreshRecentSearches() {
+        
         recentSearches = SearchHistory.sharedHistory.history
-        println("RecentsTVC / refreshRecentSearches; recentSearches.count: \(recentSearches.count)")
+        self.tableView.reloadData()
+        self.title = "Recent Searches"
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         super.numberOfSectionsInTableView(tableView)
+        
         return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        super.tableView(tableView, numberOfRowsInSection: section)
+        
         return recentSearches.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-//        if indexPath.row == 0 { refreshRecentSearches() }
-        let cell = tableView.dequeueReusableCellWithIdentifier("recentCell", forIndexPath: indexPath) as! RecentsTVCell
-        let search: SearchHistory.Search = recentSearches[indexPath.row]
-        cell.recentL.text = search.searchString
         
+        let cell = tableView.dequeueReusableCellWithIdentifier("recentCell", forIndexPath: indexPath) as! RecentsTVCell
+        cell.recentSearchString.text = recentSearches[indexPath.row].searchString
         return cell
     }
-    
 
-    
 }

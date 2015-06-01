@@ -22,36 +22,36 @@ class SearchHistory {
     
     // why is init called 5 times???
     init() {
-        // fill history array with the recent searches, if there are any
+        // from userDefaults get array of NSStrings and array of NSDates
+        // convert to Search structs and put in history array
         let store = NSUserDefaults.standardUserDefaults()
         let searchStrings = store.objectForKey("searchStrings") as? [String]
         let searchDates = store.objectForKey("searchDates") as? [NSDate]
         
-        if searchStrings != nil && searchDates != nil {
+        if searchStrings != nil && searchDates != nil && searchDates!.count == searchStrings!.count {
             // searchStrings and searchDates should have the same number of elements
             for i in 0..<searchStrings!.count {
                 let search = Search(searchString: searchStrings![i], searchDate: searchDates![i])
                 history.append(search)
             }
-        }
-        
-        println("SearchHistory.init; history.count: \(history.count)")
+        } else { println("SearchHistory/init; searchStrings and/or searchDates not valid") }
     }
     
-    // given a search term as a String, add it as history[0] 
-    // and store it in user defaults along with the current date
-    // if the string is the same as a string that was previously searched, 
-    // delete the old one from history
+    // given a search term as a String, delete an item with that string from history if it's there
+    // make a new item by adding the current date, insert it as history[0]
+    // update userDefaults
     func addSearchToHistory(string: String) {
-        println("addSearchToHistory: \(string)")
+        history = history.filter { return $0.searchString != string }
         let searchItem = Search(searchString: string, searchDate: NSDate())
         history.insert(searchItem, atIndex: 0)
-        println("now history.count: \(history.count)")
         storeHistory()
     }
     
+    // store history array in userDefaults
+    // the searchStrings and searchDates have to be stored separately because userDefaults
+    // can only store property list items so array of NSStrings and array of NSDates are ok
+    // but array of tuples is not
     private func storeHistory() {
-        println("storeHistory")
         var searchStrings = [NSString]()
         var searchDates = [NSDate]()
         for h in history {

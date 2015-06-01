@@ -26,32 +26,45 @@
         <scene sceneID="5pK-iN-HBH">
             <objects>
                 <tableViewController id="j8r-Sz-IRi" customClass="RecentsTVC" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="i13-8t-KpK">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="i13-8t-KpK">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="recentCell" id="chI-tb-X6Y" customClass="RecentsTVCell" customModule="Smashtag" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="recentCell" rowHeight="70" id="chI-tb-X6Y" customClass="RecentsTVCell" customModule="Smashtag" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="chI-tb-X6Y" id="iQd-6x-6Hb">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent String" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0Q-aG-JcT">
-                                            <rect key="frame" x="33" y="8" width="559" height="27"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recentSearchString" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cA4-5h-9bk">
+                                            <rect key="frame" x="8" y="8" width="584" height="28"/>
+                                            <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="20"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="recentSearchDate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcc-yo-YDW">
+                                            <rect key="frame" x="8" y="40" width="584" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="zh5-mb-Mbb"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="TeluguSangamMN" family="Telugu Sangam MN" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="x0Q-aG-JcT" secondAttribute="trailing" id="3k0-nh-bQ6"/>
-                                        <constraint firstItem="x0Q-aG-JcT" firstAttribute="leading" secondItem="iQd-6x-6Hb" secondAttribute="leadingMargin" constant="25" id="aMg-Uy-YCj"/>
-                                        <constraint firstAttribute="centerY" secondItem="x0Q-aG-JcT" secondAttribute="centerY" id="nda-7N-4gn"/>
-                                        <constraint firstItem="x0Q-aG-JcT" firstAttribute="top" secondItem="iQd-6x-6Hb" secondAttribute="topMargin" id="wTx-Cc-5ST"/>
+                                        <constraint firstItem="cA4-5h-9bk" firstAttribute="top" secondItem="iQd-6x-6Hb" secondAttribute="topMargin" id="6nc-z8-cAj"/>
+                                        <constraint firstItem="cA4-5h-9bk" firstAttribute="leading" secondItem="iQd-6x-6Hb" secondAttribute="leadingMargin" id="HcL-GB-E8G"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="jcc-yo-YDW" secondAttribute="bottom" id="HrY-uY-0su"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="cA4-5h-9bk" secondAttribute="trailing" id="Z7c-u0-LQM"/>
+                                        <constraint firstItem="jcc-yo-YDW" firstAttribute="top" secondItem="cA4-5h-9bk" secondAttribute="bottom" constant="4" id="b13-CK-6cA"/>
+                                        <constraint firstItem="jcc-yo-YDW" firstAttribute="leading" secondItem="iQd-6x-6Hb" secondAttribute="leadingMargin" id="vze-wG-LTA"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="jcc-yo-YDW" secondAttribute="trailing" id="zzi-r1-ffD"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="recentL" destination="x0Q-aG-JcT" id="KOn-v0-ScO"/>
+                                    <outlet property="recentSearchDate" destination="jcc-yo-YDW" id="ZC1-D5-3jb"/>
+                                    <outlet property="recentSearchString" destination="cA4-5h-9bk" id="YTa-Qj-6qI"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
