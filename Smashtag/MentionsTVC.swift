@@ -85,6 +85,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {     // >>>>>>>>>
         switch firstChar {
             case "#", "@":
             textForNextSearch = cellText
+            println(textForNextSearch)
             performSegueWithIdentifier("unwindToSearches", sender: self)
             
         case "h":

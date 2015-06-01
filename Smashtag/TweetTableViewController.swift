@@ -11,8 +11,6 @@ import UIKit
 
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
-    let debugPrinting = false
-    
     deinit {
         UIDevice.currentDevice().endGeneratingDeviceOrientationNotifications()
     }
@@ -32,6 +30,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                 tweets.removeAll()
                 tableView.reloadData()
                 refresh()
+                let s = searchText!
+                SearchHistory.sharedHistory.storeSearch(s)
             }
     }
     
@@ -176,16 +176,14 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(TweetsConstants.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
         cell.tweet = tweets[indexPath.section][indexPath.row]
-        
-        if debugPrinting {
-            println()
-            println("==========")
-            println(cell.tweet)
-            for item in cell.tweet!.media {
-                println("media item: \(item.description)")
-            }
-            println("==========")
-        }
+
+//            println()
+//            println("==========")
+//            println(cell.tweet)
+//            for item in cell.tweet!.media {
+//                println("media item: \(item.description)")
+//            }
+//            println("==========")
         
         return cell
     }
@@ -193,10 +191,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     @IBAction private func unwindToSearches(sender: UIStoryboardSegue) {
         let sourceViewController = sender.sourceViewController as! MentionsTVC
         searchText = sourceViewController.textForNextSearch
-    }
-    
-    func canPerformUnwindSegueAction(action:Selector, fromViewController:MentionsTVC, sender:AnyObject) () -> Bool {
-        return true
     }
     
     /*
