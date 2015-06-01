@@ -43,9 +43,10 @@ class SearchHistory {
     // if the string is the same as a string that was previously searched, 
     // delete the old one from history
     func addSearchToHistory(string: String) {
-        println("storeSearch: \(string)")
+        println("addSearchToHistory: \(string)")
         let searchItem = Search(searchString: string, searchDate: NSDate())
         history.insert(searchItem, atIndex: 0)
+        println("now history.count: \(history.count)")
         storeHistory()
     }
     

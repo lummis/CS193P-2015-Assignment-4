@@ -18,7 +18,6 @@ class RecentsTVC: UITableViewController {       // >>>>>>>>>>>>>>> CLASS <<<<<<<
 
     @IBOutlet var recentsTV: UITableView!
     
-//    var recentSearches: [SearchHistory.Search] = SearchHistory.sharedHistory.history {
     var recentSearches: [SearchHistory.Search] = [] {
         didSet {
             println("recentSearches/didSet; recentSearches.count: \(recentSearches.count)")
@@ -28,13 +27,8 @@ class RecentsTVC: UITableViewController {       // >>>>>>>>>>>>>>> CLASS <<<<<<<
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         refreshRecentSearches()
+        self.tableView.reloadData()
         println("RecentsTVC/viewWillAppear; recentSearches.count: \(recentSearches.count)")
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        refreshRecentSearches()
-        println("RecentsTVC/viewDIDAppear; recentSearches.count: \(recentSearches.count)")
     }
     
     private func refreshRecentSearches() {
@@ -48,14 +42,12 @@ class RecentsTVC: UITableViewController {       // >>>>>>>>>>>>>>> CLASS <<<<<<<
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let searchHistory = SearchHistory()
         return recentSearches.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-        
-        refreshRecentSearches()
+//        if indexPath.row == 0 { refreshRecentSearches() }
         let cell = tableView.dequeueReusableCellWithIdentifier("recentCell", forIndexPath: indexPath) as! RecentsTVCell
         let search: SearchHistory.Search = recentSearches[indexPath.row]
         cell.recentL.text = search.searchString
