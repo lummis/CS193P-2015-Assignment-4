@@ -65,8 +65,8 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {     // >>>>>>>>>
     
     // if an image is present it will always be in row 0
     // the twitter API has an array of .MediaItems so there could be more than one
-    // but we show the first image; in practice there seems to never be more than one
-    // maybe twitter doesn't support >1.
+    // but we show the first image only; in practice there seems to never be more than one
+    // maybe twitter doesn't support >1
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0 && hasImage {
             return 100.0 / aspectRatio
@@ -75,6 +75,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {     // >>>>>>>>>
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {                          // ????????????????
         
+        // if the image is selected the segue is handled by prepareForSegue
         if imageURL != nil && indexPath.section == 0 && indexPath.row == 0 {
             return
         }
@@ -103,7 +104,7 @@ class MentionsTVC: UITableViewController, UITableViewDelegate {     // >>>>>>>>>
         
         if segue.identifier == "showImage" {
             let imageVC = segue.destinationViewController as! ImageVC
-            imageVC.title = "The Image"
+            imageVC.title = self.title
             let qos = Int(QOS_CLASS_USER_INITIATED.value)
             let queue = dispatch_get_global_queue(qos, 0)
             dispatch_async(queue) {

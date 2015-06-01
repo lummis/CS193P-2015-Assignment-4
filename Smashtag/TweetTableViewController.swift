@@ -110,7 +110,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         let tweet = cell.tweet!
         
         var destinationVC = segue.destinationViewController as! MentionsTVC
-        destinationVC.title = tweet.user.screenName
+        destinationVC.title = "@" + tweet.user.screenName
         
         let tweetMedia = tweet.media
         if !tweetMedia.isEmpty {
