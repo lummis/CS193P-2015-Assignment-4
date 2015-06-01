@@ -46,6 +46,16 @@ class RecentsTVC: UITableViewController {        // >>>>>>>>>>>>>>> CLASS <<<<<<
         
         let cell = tableView.dequeueReusableCellWithIdentifier("recentCell", forIndexPath: indexPath) as! RecentsTVCell
         cell.recentSearchString.text = recentSearches[indexPath.row].searchString
+        let searchDate = recentSearches[indexPath.row].searchDate
+        
+        let formatter = NSDateFormatter()
+        if NSDate().timeIntervalSinceDate(searchDate) > 24*60*60 {
+            formatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        } else {
+            formatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        }
+        cell.recentSearchDate.text = formatter.stringFromDate(searchDate)
+        
         return cell
     }
 
