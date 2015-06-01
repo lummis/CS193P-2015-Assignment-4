@@ -30,8 +30,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                 tweets.removeAll()
                 tableView.reloadData()
                 refresh()
-                let s = searchText!
-                SearchHistory.sharedHistory.storeSearch(s)
+                SearchHistory.sharedHistory.addSearchToHistory(searchText!)
             }
     }
     
@@ -59,9 +58,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Class
     func refresh() {
-//        if refreshControl != nil {
-//            refreshControl?.beginRefreshing()
-//        }
         refreshControl?.beginRefreshing()
         refreshAction(refreshControl)
     }
@@ -82,6 +78,9 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     @IBAction private func refreshAction(sender: UIRefreshControl?) {
         println("refreshAction")
+        if nextRequestToAttempt == nil {
+            println("REFRESHACTION CALLED BUT NEXTREQUESTTOATTEMPT IS NIL")
+        }
         if let request = nextRequestToAttempt {
             request.fetchTweets { (newTweets) -> Void in
                 dispatch_async(dispatch_get_main_queue()) { () -> Void in

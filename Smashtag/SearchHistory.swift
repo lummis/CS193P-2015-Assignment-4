@@ -10,7 +10,8 @@ import UIKit
 
 class SearchHistory {
     
-    static let sharedHistory = SearchHistory()  // make "sharedHistory" singleton. requires Swift >= 1.2
+    // "SearchHistory.sharedHistory" is a singleton. requires Swift >= 1.2
+    static let sharedHistory = SearchHistory()
     
     struct Search {
         let searchString: String
@@ -19,6 +20,7 @@ class SearchHistory {
     
     var history = [Search]()
     
+    // why is init called 5 times???
     init() {
         // fill history array with the recent searches, if there are any
         let store = NSUserDefaults.standardUserDefaults()
@@ -40,13 +42,15 @@ class SearchHistory {
     // and store it in user defaults along with the current date
     // if the string is the same as a string that was previously searched, 
     // delete the old one from history
-    func storeSearch(string: String) {
+    func addSearchToHistory(string: String) {
+        println("storeSearch: \(string)")
         let searchItem = Search(searchString: string, searchDate: NSDate())
         history.insert(searchItem, atIndex: 0)
         storeHistory()
     }
     
     private func storeHistory() {
+        println("storeHistory")
         var searchStrings = [NSString]()
         var searchDates = [NSDate]()
         for h in history {
@@ -56,5 +60,6 @@ class SearchHistory {
         let store = NSUserDefaults.standardUserDefaults()
         store.setObject(searchStrings, forKey: "searchStrings")
         store.setObject(searchDates, forKey: "searchDates")
+        store.synchronize() // probably not needed
     }
 }
