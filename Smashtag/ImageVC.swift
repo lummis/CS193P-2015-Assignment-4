@@ -77,8 +77,7 @@ class ImageVC: UIViewController, UIScrollViewDelegate {
     // in lecture he said this callback means the user zoomed the view but that's not right
     // this callback comes whenever the view is zoomed, whether by the used or by code
     func scrollViewDidZoom(scrollView: UIScrollView) {
-        println("scrollViewDidZoom")
-        userDidZoom = true  // if zoom caused by autoZoom this will immediately get set back to false
+        userDidZoom = true  // if zoom was caused by autoZoom this immediately gets set back to false
     }
 
 }

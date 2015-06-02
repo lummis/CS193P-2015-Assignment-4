@@ -18,7 +18,8 @@ class SearchHistory {
         let searchDate: NSDate
     }
     
-    var history = [Search]()
+    private let historySize = 100  // maximum number of history items saved in userDefaults
+    var history = [Search]()    // not private because RecentsTVC has to get it
     
     // why is init called 5 times???
     init() {
@@ -47,16 +48,19 @@ class SearchHistory {
         storeHistory()
     }
     
-    // store history array in userDefaults
+    // store up to historySize history items in userDefaults
     // the searchStrings and searchDates have to be stored separately because userDefaults
     // can only store property list items so array of NSStrings and array of NSDates are ok
     // but array of tuples is not
     private func storeHistory() {
+        while history.count > historySize {
+            history.removeLast()
+        }
         var searchStrings = [NSString]()
         var searchDates = [NSDate]()
-        for h in history {
-            searchStrings.append(h.searchString as NSString)
-            searchDates.append(h.searchDate)
+        for item in history {
+            searchStrings.append(item.searchString as NSString)
+            searchDates.append(item.searchDate)
         }
         let store = NSUserDefaults.standardUserDefaults()
         store.setObject(searchStrings, forKey: "searchStrings")

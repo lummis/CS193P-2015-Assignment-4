@@ -61,8 +61,7 @@ class RecentsTVC: UITableViewController {        // >>>>>>>>>>>>>>> CLASS <<<<<<
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
-        
-        println("prepare")
+    
         if segue.identifier == "recents-search" {
             if let vc = segue.destinationViewController as? TweetTableViewController {
                 if let text = (sender as? RecentsTVCell)!.recentSearchString.text {
