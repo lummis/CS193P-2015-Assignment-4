@@ -22,8 +22,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     var tweets = [[Tweet]]()
     
-//    var searchText: String? = "#DARPADRC" {   // initial search text
-    var searchText: String? = "#auditography" {   // initial search text
+    var searchText: String? {   // search text is initially blank
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText  // just in case somebody updates public searchText

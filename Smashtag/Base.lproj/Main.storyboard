@@ -74,7 +74,9 @@
                             <outlet property="delegate" destination="j8r-Sz-IRi" id="i5E-lr-3Xc"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="njj-Vs-YDZ"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="recentsTV" destination="i13-8t-KpK" id="KeG-q2-R1B"/>
                     </connections>
@@ -91,7 +93,7 @@
                         <rect key="frame" x="0.0" y="44" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <textField key="tableHeaderView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="bezel" placeholder="Search Text" minimumFontSize="16" id="YLT-Je-awe" userLabel="Search For...">
+                        <textField key="tableHeaderView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="bezel" placeholder="Enter search text here" minimumFontSize="16" id="YLT-Je-awe" userLabel="Search For...">
                             <rect key="frame" x="0.0" y="64" width="600" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <attributedString key="attributedText"/>
